@@ -1,4 +1,4 @@
-package com.myscool
+package com.fahad0.school
 
 import android.app.Application
 import android.content.res.Configuration

@@ -1,7 +1,10 @@
 {
   "expo": {
-    "name": "my-scool",
-    "slug": "my-scool",
-    "version": "1.0.0"
+    "name": "school",
+    "slug": "school",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.fahad0.school"
+    }
   }
 }
