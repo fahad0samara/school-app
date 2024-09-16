@@ -1,22 +1,28 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// languageSlice.ts
+import { createSlice } from "@reduxjs/toolkit";
 
-interface LanguageState {
-  language: string;
-}
-
-const initialState: LanguageState = {
-  language: "en", // Default language
+const initialState = {
+  language: "en",
+  isRTL: false,
+  loading: false, // Add this line
 };
 
 const languageSlice = createSlice({
   name: "language",
   initialState,
   reducers: {
-    setLanguage(state, action: PayloadAction<string>) {
+    setLanguage: (state, action) => {
       state.language = action.payload;
+    },
+    setIsRTL: (state, action) => {
+      state.isRTL = action.payload;
+    },
+    setLoading: (state, action) => {
+      // Add this reducer
+      state.loading = action.payload;
     },
   },
 });
 
-export const { setLanguage } = languageSlice.actions;
+export const { setLanguage, setIsRTL, setLoading } = languageSlice.actions;
 export default languageSlice.reducer;

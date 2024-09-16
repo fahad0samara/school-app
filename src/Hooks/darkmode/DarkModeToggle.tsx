@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { View, Switch, StyleSheet } from 'react-native';
+import { View, Switch, StyleSheet, LayoutAnimation } from 'react-native';
 import { RootState } from '../../redux/store';
 import { toggleDarkMode } from '../../redux/DarkMod/darkModeSlice';
 
@@ -11,6 +11,7 @@ const DarkModeToggle = () => {
 
   const handleToggle = () => {
     dispatch(toggleDarkMode());
+           LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   };
 
   return (

@@ -58,4 +58,17 @@ export default {
     incorrectPassword: "تأكيد كلمة المرور غير صحيح!",
     termAndConditionEmpty: "يجب الموافقة على الشروط والأحكام",
   },
+  profile: "الملف الشخصي",
+  myBooking: "حجوزاتي",
+  editProfile: "تعديل الملف الشخصي",
+  notification: "إشعارات",
+  payment: "دفع",
+  security: "أمان",
+  languageRegion: "اللغة والمنطقة",
+  darkMode: "الوضع الليلي ",
+  privacyPolicy: "سياسة الخصوصية",
+  helpCenter: "مركز المساعدة",
+  inviteFriends: "دعوة الأصدقاء",
+  englishUS: "الإنجليزية (الولايات المتحدة)",
+
 };
