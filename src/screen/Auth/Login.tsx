@@ -29,7 +29,7 @@ const initialState = {
 }
 
 const Login = ({ navigation }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation();1
   const [formState, dispatchFormState] = useState(initialState);
   const [error, setError] = useState(null);
   const [isChecked, setChecked] = useState(false);
@@ -75,6 +75,9 @@ const Login = ({ navigation }) => {
           </View>
           <Text style={[styles.title, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
             {t('loginScreen.title')}
+          </Text>
+             <Text style={[styles.suptitle, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+            {t('loginScreen.suptitle')}
           </Text>
           <Input
             id="email"
@@ -178,6 +181,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
+    fontFamily: "bold",
+    color: COLORS.black,
+    textAlign: "center",
+    marginBottom: 10
+  },
+    suptitle: {
+    fontSize: 14,
     fontFamily: "bold",
     color: COLORS.black,
     textAlign: "center",

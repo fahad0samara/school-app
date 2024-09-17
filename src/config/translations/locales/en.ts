@@ -29,7 +29,9 @@ export default {
     profile: "My profile",
   },
   loginScreen: {
-    title: "Login to Your Account",
+    title: "Welcome back",
+    suptitle:
+      "We happy to see you again. To use your account,you should log in first.",
     emailPlaceholder: "Email",
     passwordPlaceholder: "Password",
     rememberMe: "Remember me",
@@ -40,7 +42,8 @@ export default {
     signUp: "Sign Up",
   },
   registerScreen: {
-    title: "Create an account",
+    title: "Create an Account",
+    suptitle: "Fill out the form to set up your new account.",
     usernamePlaceholder: "User-Name",
     emailPlaceholder: "Email",
     passwordPlaceholder: "Password",
@@ -56,6 +59,7 @@ export default {
     incorrectPassword: "Confirmation password incorrect!",
     termAndConditionEmpty: "You must agree to the terms and conditions",
     Already: "Already have an account ?",
+    login: "Login",
   },
   profile: "Profile",
   myBooking: "My Booking",

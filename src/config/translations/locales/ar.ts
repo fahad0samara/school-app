@@ -29,7 +29,9 @@ export default {
     profile: "ملفي الشخصي",
   },
   loginScreen: {
-    title: "تسجيل الدخول إلى حسابك",
+    title: "مرحبا بعودتك",
+    suptitle:
+      "سعداء برؤيتك مرة أخرى. لاستخدام حسابك، يجب عليك تسجيل الدخول أولاً.",
     emailPlaceholder: "البريد الإلكتروني",
     passwordPlaceholder: "كلمة المرور",
     rememberMe: "تذكرني",
@@ -37,10 +39,11 @@ export default {
     forgotPassword: "هل نسيت كلمة المرور؟",
     orContinueWith: "أو تابع باستخدام",
     dontHaveAccount: "ليس لديك حساب؟",
-    signUp: "سجل",
+    signUp: " سجل",
   },
   registerScreen: {
     title: "إنشاء حساب",
+    suptitle: "املأ النموذج لإنشاء حسابك الجديد",
     usernamePlaceholder: "اسم المستخدم",
     emailPlaceholder: "البريد الإلكتروني",
     passwordPlaceholder: "كلمة المرور",

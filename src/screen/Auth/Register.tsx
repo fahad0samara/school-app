@@ -1,17 +1,16 @@
 import { View, Text, StyleSheet, ScrollView, Alert, Image, TouchableOpacity, Modal, TouchableWithoutFeedback, FlatList, TextInput } from 'react-native';
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 import { MaterialCommunityIcons, Feather, Ionicons } from "@expo/vector-icons";
 import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
 import { COLORS, SIZES } from '../../constants/theme';
-import Header from '../../components/Header';
 import { icons } from '../../constants';
 import Input from '../../components/Input';
 import { validateInput } from '../../utils/actions/formActions';
 import { launchImagePicker } from '../../utils/ImagePickerHelper';
-import { FONTS } from '../../constants/fonts';
+
 import Button from '../../components/Button';
 
 import { images } from '../../constants';
@@ -27,8 +26,8 @@ const isTestMode = true;
 
 const initialState = {
   inputValues: {
-    fullName: isTestMode ? 'John Doe' : '',
-    email: isTestMode ? 'example@gmail.com' : '',
+    fullName: isTestMode ? 'fahad samara ' : '',
+    email: isTestMode ? 'fahad@gmail.com' : '',
     nickname: isTestMode ? "" : "",
     phoneNumber: ''
   },
@@ -45,20 +44,14 @@ const initialState = {
 const Register = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState();
-  const [formState, dispatchFormState] = useState( initialState);
+  const [formState, dispatchFormState] = useState(initialState);
   const [areas, setAreas] = useState([]);
   const [selectedArea, setSelectedArea] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [openStartDatePicker, setOpenStartDatePicker] = useState(false);
-   const [isChecked, setChecked] = useState(false);
- const { isRTL } = useLanguage();
+  const [isChecked, setChecked] = useState(false);
+  const { isRTL } = useLanguage();
   const { colors, isDarkMode } = useDarkMode();
   const { t } = useTranslation();
-
-
-
-
-
   const inputChangedHandler = useCallback(
     (inputId, inputValue) => {
       const result = validateInput(inputId, inputValue)
@@ -82,11 +75,11 @@ const Register = ({ navigation }) => {
       setImage({ uri: tempUri })
     } catch (error) { }
   };
-    const googleAuthHandler = () => {
+  const googleAuthHandler = () => {
     console.log("Google Authentication");
   };
 
-  // fectch codes from rescountries api
+  // fetch codes from rescountries api
   useEffect(() => {
     fetch("https://restcountries.com/v2/all")
       .then(response => response.json())
@@ -102,7 +95,8 @@ const Register = ({ navigation }) => {
 
         setAreas(areaData);
         if (areaData.length > 0) {
-          let defaultData = areaData.filter((a) => a.code == "US");
+          const defaultData = areaData.filter((a) => a.code === "KW");
+
 
           if (defaultData.length > 0) {
             setSelectedArea(defaultData[0])
@@ -127,7 +121,7 @@ const Register = ({ navigation }) => {
           }}>
           <Image
             source={{ uri: item.flag }}
-            contentFit='contain'
+
             style={{
               height: 30,
               width: 30,
@@ -178,9 +172,15 @@ const Register = ({ navigation }) => {
   return (
     <SafeAreaView style={[styles.area, { backgroundColor: colors.background }]}>
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Header title={t('registerScreen.title')} />
+
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{ alignItems: "center", marginVertical: 12 }}>
+            <Text style={[styles.title, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+              {t('registerScreen.title')}
+            </Text>
+            <Text style={[styles.suptitle, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+              {t('registerScreen.suptitle')}
+            </Text>
             <View style={styles.avatarContainer}>
               <Image
                 source={image === null ? images.logo : image}
@@ -199,41 +199,41 @@ const Register = ({ navigation }) => {
           <View>
             <Input
               id="fullName"
-                iconType="icon"
+              iconType="icon"
               onInputChanged={inputChangedHandler}
               errorText={formState.inputValidities['fullName']}
-               placeholder={t('registerScreen.usernamePlaceholder')}
-               placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
-                 icon="user"
-               
-               />
-         
+              placeholder={t('registerScreen.usernamePlaceholder')}
+              placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
+              icon="user"
+
+            />
+
             <Input
-           id="email"
-            iconType="icon"
-            onInputChanged={inputChangedHandler}
-            errorText={formState.inputValidities['email']}
-            placeholder={t('loginScreen.emailPlaceholder')}
-            placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
-            icon="mail"
-            keyboardType="email-address" />
+              id="email"
+              iconType="icon"
+              onInputChanged={inputChangedHandler}
+              errorText={formState.inputValidities['email']}
+              placeholder={t('loginScreen.emailPlaceholder')}
+              placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
+              icon="mail"
+              keyboardType="email-address" />
             <View style={{
               width: SIZES.width - 32
             }}>
 
-                    <Input
-            iconType="icon"
-            icon="lock"
-            onInputChanged={inputChangedHandler}
-            errorText={formState.inputValidities['password']}
-            autoCapitalize="none"
-            id="password"
-            placeholder={t('loginScreen.passwordPlaceholder')}
-            placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
-            secureTextEntry={true}
-          />
+              <Input
+                iconType="icon"
+                icon="lock"
+                onInputChanged={inputChangedHandler}
+                errorText={formState.inputValidities['password']}
+                autoCapitalize="none"
+                id="password"
+                placeholder={t('loginScreen.passwordPlaceholder')}
+                placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
+                secureTextEntry={true}
+              />
 
-          
+
             </View>
             <View style={[styles.inputContainer, {
               backgroundColor: isDarkMode ? COLORS.dark2 : COLORS.greyscale500,
@@ -244,7 +244,7 @@ const Register = ({ navigation }) => {
                 onPress={() => setModalVisible(true)}>
                 <View style={{ justifyContent: "center" }}>
                   <Image
-                    source={icons.down}
+                    source={icons.google}
                     resizeMode='contain'
                     style={styles.downIcon}
                   />
@@ -252,7 +252,7 @@ const Register = ({ navigation }) => {
                 <View style={{ justifyContent: "center", marginLeft: 5 }}>
                   <Image
                     source={{ uri: selectedArea?.flag }}
-                    contentFit="contain"
+
                     style={styles.flagIcon}
                   />
                 </View>
@@ -262,25 +262,25 @@ const Register = ({ navigation }) => {
               </TouchableOpacity>
               {/* Phone Number Text Input */}
               <TextInput
-                            placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
+                placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
 
                 placeholder={t('registerScreen.phoneNumber')}
-                   style={[
-            styles.input,
-            {
-              color: isDarkMode ? COLORS.white : COLORS.black,
-              textAlign: isRTL ? 'right' : 'left',
-              textAlignVertical: 'center',
-              writingDirection: isRTL ? 'rtl' : 'ltr',
-            },
-          ]}
+                style={[
+                  styles.input,
+                  {
+                    color: isDarkMode ? COLORS.white : COLORS.black,
+                    textAlign: isRTL ? 'right' : 'left',
+                    textAlignVertical: 'center',
+                    writingDirection: isRTL ? 'rtl' : 'ltr',
+                  },
+                ]}
                 selectionColor="#111"
                 keyboardType="numeric"
 
               />
             </View>
           </View>
-                  <View style={styles.checkBoxContainer}>
+          <View style={styles.checkBoxContainer}>
             <View style={{ flexDirection: 'row' }}>
               <Checkbox
                 style={styles.checkbox}
@@ -301,7 +301,7 @@ const Register = ({ navigation }) => {
             onPress={() => navigation.navigate("Main")}
             style={styles.button}
           />
-                <View>
+          <View>
             <OrSeparator text={t('loginScreen.orContinueWith')} />
             <View style={styles.socialBtnContainer}>
               {/* <SocialButton
@@ -319,19 +319,19 @@ const Register = ({ navigation }) => {
                 tintColor
               />
             </View>
-            
+
           </View>
-            <View style={styles.bottomContainer}>
-          <Text style={[styles.bottomLeft, {
-            color: isDarkMode ? COLORS.white : COLORS.black
-          }]}>{t('registerScreen.Already')}</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.bottomRight}>{" "}Sign In</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.bottomContainer}>
+            <Text style={[styles.bottomLeft, {
+              color: isDarkMode ? COLORS.white : COLORS.black
+            }]}>{t('registerScreen.Already')}</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Login")}>
+              <Text style={styles.bottomRight}>{" "}{t('registerScreen.login')}</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
-            
+
       </View>
 
       {RenderAreasCodesModal()}
@@ -373,6 +373,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+  title: {
+    fontSize: 28,
+    fontFamily: "bold",
+    color: COLORS.black,
+    textAlign: "center",
+    marginBottom: 10
+  },
+  suptitle: {
+    fontSize: 14,
+    fontFamily: "bold",
+    color: COLORS.black,
+    textAlign: "center",
+    marginBottom: 10
+  },
   inputContainer: {
     flexDirection: "row",
     borderColor: COLORS.greyscale500,
@@ -405,7 +419,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 14,
     color: "#111",
-    marginHorizontal:4
+    marginHorizontal: 4
   },
   inputBtn: {
     borderWidth: 1,
@@ -450,10 +464,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   privacy: {
-      fontSize: 13,
+    fontSize: 13,
     fontFamily: "regular",
     color: COLORS.black,
-   marginTop:2
+    marginTop: 2
   },
   socialTitle: {
     fontSize: 19.25,
@@ -472,8 +486,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginVertical: 18,
-   
-    
+
+
   },
   bottomLeft: {
     fontSize: 14,
