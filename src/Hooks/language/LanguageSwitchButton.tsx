@@ -26,6 +26,7 @@ import { t } from "i18next";
 
 const LanguageSwitchButton = () => {
   const dispatch = useDispatch();
+   const { language, isRTL } = useLanguage();
   const currentLanguage = useSelector(
     (state: RootState) => state.language.language
   );
@@ -33,8 +34,7 @@ const LanguageSwitchButton = () => {
   const refRBSheet = useRef(null);
   const { colors, isDarkMode } = useDarkMode();
   const newLanguage = currentLanguage === "en" ? "ar" : "en";
-  const isRTL = newLanguage === "ar";
-  const language = useLanguage();
+
   const handleLanguageChange = async () => {
     try {
       dispatch(setLoading(true));

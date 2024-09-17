@@ -4,10 +4,10 @@
     "slug": "school",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/splash.png",
+    "icon": "./assets/Splash.jpg",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Splash.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#335EF7"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/splash.png",
+        
         "backgroundColor": "#000"
       },
       "package": "com.fahad0.school"

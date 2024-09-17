@@ -62,7 +62,7 @@ export const COLORS = {
   grayscale250: "#CFCFCF",
   grayscale200: "#EEEEEE",
   grayscale100: "#F5F5F5",
-  tansparentPrimary: "rgba(36, 107, 253, 0.08)",
+  transparentPrimary: "rgba(36, 107, 253, 0.08)",
   transparentSecondary: "rgba(108,77,218, .15)",
   transparentTertiary: "rgba(51, 94, 247, .1)",
   transparentRed: "rgba(255,62,61, .15)",

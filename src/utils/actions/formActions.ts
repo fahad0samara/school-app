@@ -1,3 +1,4 @@
+ // Adjust the import as needed
 import {
   validateString,
   validateEmail,
@@ -33,8 +34,9 @@ type InputId =
   | "creditCardExpiryDate"
   | "cvv";
 
-// Define a return type for validation functions (for example, it can be a string or boolean, depending on your implementation)
-type ValidationResult = string | boolean;
+// Define a return type for validation functions
+type ValidationResult = string[] | boolean;
+
 
 // Updated validateInput function with explicit types
 export const validateInput = (
@@ -57,31 +59,31 @@ export const validateInput = (
     case "link":
     case "occupation":
     case "resetToken":
-      return validateString(inputId, inputValue);
+      return validateString(inputId, inputValue, locale);
 
     // Email validation
     case "email":
     case "newEmail":
-      return validateEmail(inputId, inputValue);
+      return validateEmail(inputId, inputValue, locale);
 
     // Password validation
     case "password":
     case "confirmPassword":
     case "newPassword":
     case "confirmNewPassword":
-      return validatePassword(inputId, inputValue);
+      return validatePassword(inputId, inputValue, locale);
 
     // Credit card number validation
     case "creditCardNumber":
-      return validateCreditCardNumber(inputId, inputValue);
+      return validateCreditCardNumber(inputId, inputValue, locale);
 
     // Credit card expiry date validation
     case "creditCardExpiryDate":
-      return validateExpiryDate(inputId, inputValue);
+      return validateExpiryDate(inputId, inputValue, locale);
 
     // CVV validation
     case "cvv":
-      return validateCVV(inputId, inputValue);
+      return validateCVV(inputId, inputValue, locale);
 
     // Default case if the input ID is not recognized
     default:

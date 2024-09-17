@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store"; // Adjust the path as needed
+import { RootState } from "../../redux/store"; 
 
 const useLanguage = () => {
-  return useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state: RootState) => state.language.language);
+  const isRTL = useSelector((state: RootState) => state.language.isRTL);
+
+  return { language, isRTL };
 };
 
 export default useLanguage;

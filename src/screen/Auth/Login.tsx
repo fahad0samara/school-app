@@ -1,15 +1,7 @@
 import { View, Text, StyleSheet, ScrollView, Image, Alert, TouchableOpacity } from 'react-native';
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-
-
-
-
 import Checkbox from 'expo-checkbox';
-
-
-
 import { COLORS, SIZES } from '../../constants/theme';
 import { validateInput } from '../../utils/actions/formActions';
 import Button from '../../components/Button';
@@ -18,14 +10,16 @@ import SocialButton from '../../components/SocialButton';
 import Input from '../../components/Input';
 import OrSeparator from '../../components/OrSeparator';
 import Header from '../../components/Header';
-
+import icons from '../../constants/icons';
+import { images } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 const isTestMode = true;
 
 const initialState = {
   inputValues: {
-    email: isTestMode ? 'example@gmail.com' : '',
-    password: isTestMode ? '**********' : '',
+    email: isTestMode ? 'fahad@gmail.com' : '',
+    password: isTestMode ? '111111' : '',
   },
   inputValidities: {
     email: false,
@@ -34,48 +28,42 @@ const initialState = {
   formIsValid: false,
 }
 
-
 const Login = ({ navigation }) => {
-  const [formState, dispatchFormState] = useState( initialState);
+  const { t } = useTranslation();
+  const [formState, dispatchFormState] = useState(initialState);
   const [error, setError] = useState(null);
   const [isChecked, setChecked] = useState(false);
-const { colors,isDarkMode  } = useDarkMode();
+  const { colors, isDarkMode } = useDarkMode();
 
   const inputChangedHandler = useCallback(
     (inputId, inputValue) => {
-      const result = validateInput(inputId, inputValue)
-      dispatchFormState({ inputId, validationResult: result, inputValue })
+      const result = validateInput(inputId, inputValue);
+      dispatchFormState({ inputId, validationResult: result, inputValue });
     },
     [dispatchFormState]
   );
 
   useEffect(() => {
     if (error) {
-      Alert.alert('An error occured', error)
+      Alert.alert(t('alert.errorTitle'), error);
     }
-  }, [error]);
+  }, [error, t]);
 
-  // implementing apple authentication
   const appleAuthHandler = () => {
-    console.log("Apple Authentication")
+    console.log("Apple Authentication");
   };
 
-  // implementing facebook authentication
   const facebookAuthHandler = () => {
-    console.log("Facebook Authentication")
+    console.log("Facebook Authentication");
   };
 
-  // Implementing google authentication
   const googleAuthHandler = () => {
-    console.log("Google Authentication")
+    console.log("Google Authentication");
   };
 
   return (
-    <SafeAreaView style={[styles.area, {
-      backgroundColor: colors.background }]}>
-      <View style={[styles.container, {
-        backgroundColor: colors.background
-      }]}>
+    <SafeAreaView style={[styles.area, { backgroundColor: colors.background }]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
         <Header />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.logoContainer}>
@@ -85,26 +73,28 @@ const { colors,isDarkMode  } = useDarkMode();
               style={styles.logo}
             />
           </View>
-          <Text style={[styles.title, {
-            color: isDarkMode ? COLORS.white : COLORS.black
-          }]}>Login to Your Account</Text>
+          <Text style={[styles.title, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+            {t('loginScreen.title')}
+          </Text>
           <Input
             id="email"
+            iconType="icon"
             onInputChanged={inputChangedHandler}
             errorText={formState.inputValidities['email']}
-            placeholder="Email"
+            placeholder={t('loginScreen.emailPlaceholder')}
             placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
-            // icon={icons.email}
+            icon="mail"
             keyboardType="email-address"
           />
           <Input
+            iconType="icon"
+            icon="lock"
             onInputChanged={inputChangedHandler}
             errorText={formState.inputValidities['password']}
             autoCapitalize="none"
             id="password"
-            placeholder="Password"
+            placeholder={t('loginScreen.passwordPlaceholder')}
             placeholderTextColor={isDarkMode ? COLORS.grayTie : COLORS.black}
-            // icon={icons.padlock}
             secureTextEntry={true}
           />
           <View style={styles.checkBoxContainer}>
@@ -116,27 +106,26 @@ const { colors,isDarkMode  } = useDarkMode();
                 onValueChange={setChecked}
               />
               <View style={{ flex: 1 }}>
-                <Text style={[styles.privacy, {
-                  color: isDarkMode ? COLORS.white : COLORS.black
-                }]}>Remenber me</Text>
+                <Text style={[styles.privacy, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+                  {t('loginScreen.rememberMe')}
+                </Text>
               </View>
             </View>
           </View>
           <Button
-            title="Login"
+            title={t('loginScreen.btnLogin')}
             filled
             onPress={() => navigation.navigate("Main")}
             style={styles.button}
           />
           <TouchableOpacity
             onPress={() => navigation.navigate("ForgotPasswordMethods")}>
-            <Text style={styles.forgotPasswordBtnText}>Forgot the password?</Text>
+            <Text style={styles.forgotPasswordBtnText}>{t('loginScreen.forgotPassword')}</Text>
           </TouchableOpacity>
           <View>
-
-            <OrSeparator text="or continue with" />
+            <OrSeparator text={t('loginScreen.orContinueWith')} />
             <View style={styles.socialBtnContainer}>
-              <SocialButton
+              {/* <SocialButton
                 // icon={icons.appleLogo}
                 onPress={appleAuthHandler}
                 tintColor={isDarkMode ? COLORS.white : COLORS.black}
@@ -144,21 +133,22 @@ const { colors,isDarkMode  } = useDarkMode();
               <SocialButton
                 // icon={icons.facebook}
                 onPress={facebookAuthHandler}
-              />
+              /> */}
               <SocialButton
-                // icon={icons.google}
+                icon={icons.google}
                 onPress={googleAuthHandler}
+                tintColor
               />
             </View>
           </View>
         </ScrollView>
         <View style={styles.bottomContainer}>
-          <Text style={[styles.bottomLeft, {
-            color: isDarkMode ? COLORS.white : COLORS.black
-          }]}>Don't have an account ?</Text>
+          <Text style={[styles.bottomLeft, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+            {t('loginScreen.dontHaveAccount')}
+          </Text>
           <TouchableOpacity
             onPress={() => navigation.navigate("Signup")}>
-            <Text style={styles.bottomRight}>{"  "}Sign Up</Text>
+            <Text style={styles.bottomRight}>{t('loginScreen.signUp')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -190,19 +180,13 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontFamily: "bold",
     color: COLORS.black,
-    textAlign: "center"
+    textAlign: "center",
+    marginBottom: 10
   },
   center: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 26,
-    fontFamily: "semiBold",
-    color: COLORS.black,
-    textAlign: "center",
-    marginBottom: 22
   },
   checkBoxContainer: {
     flexDirection: "row",
@@ -212,16 +196,17 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     marginRight: 8,
-    height: 16,
-    width: 16,
+    height: 20,
+    width: 20,
     borderRadius: 4,
-    borderColor: COLORS.primary,
+    borderColor: COLORS.green,
     borderWidth: 2,
   },
   privacy: {
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: "regular",
     color: COLORS.black,
+   marginTop:2
   },
   socialTitle: {
     fontSize: 19.25,
@@ -253,7 +238,8 @@ const styles = StyleSheet.create({
   bottomRight: {
     fontSize: 16,
     fontFamily: "medium",
-    color: COLORS.primary
+    color: COLORS.primary,
+    marginHorizontal: 5
   },
   button: {
     marginVertical: 6,
@@ -269,4 +255,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Login
+export default Login;

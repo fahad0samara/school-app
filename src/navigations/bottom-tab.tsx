@@ -12,7 +12,7 @@ import Courses from '../screen/courses/Courses';
 import Profile from '../screen/Profile/Profil';
 import LanguageSwitchButton from '../Hooks/language/LanguageSwitchButton';
 import Login from '../screen/Auth/Login';
-
+import registerScreen from '../screen/Auth/Register';
 const deviceWidth = Dimensions.get('window').width;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -86,8 +86,8 @@ const BottomTabNavigator = () => {
       icon: 'home',
     },
     {
-      name: 'Courses',
-      component: Courses,
+      name: 'registerScreen',
+      component: registerScreen,
       label: t('bottomNavigation.courses'),
       icon: 'book',
     },

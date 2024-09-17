@@ -15,13 +15,11 @@ const { width, height } = Dimensions.get('window');
 
 SplashScreen.preventAutoHideAsync();
 
-
-
 const App = () => {
-
+ 
   const { isDarkMode, colors } = useDarkMode();
   const [fontsLoaded] = useFonts(FONTS);
- 
+
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
@@ -57,7 +55,7 @@ const styles = StyleSheet.create({
   overlay: {
     width,
     height,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 0,

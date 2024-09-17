@@ -30,17 +30,14 @@ export default {
   },
   loginScreen: {
     title: "تسجيل الدخول إلى حسابك",
-    usernamePlaceholder: "اسم المستخدم",
+    emailPlaceholder: "البريد الإلكتروني",
     passwordPlaceholder: "كلمة المرور",
+    rememberMe: "تذكرني",
     btnLogin: "تسجيل الدخول",
     forgotPassword: "هل نسيت كلمة المرور؟",
-    registerText: "ليس لديك حساب؟",
-    register: "إنشاء حساب",
-    usernameEmpty: "اسم المستخدم مطلوب",
-    passwordEmpty: "كلمة المرور مطلوبة",
-    usernameNotCorrect: "اسم المستخدم غير صحيح",
-    passwordNotCorrect: "كلمة المرور غير صحيحة",
-    notFound: "غير موجود",
+    orContinueWith: "أو تابع باستخدام",
+    dontHaveAccount: "ليس لديك حساب؟",
+    signUp: "سجل",
   },
   registerScreen: {
     title: "إنشاء حساب",
@@ -57,6 +54,9 @@ export default {
     confirmPasswordEmpty: "تأكيد كلمة المرور مطلوب",
     incorrectPassword: "تأكيد كلمة المرور غير صحيح!",
     termAndConditionEmpty: "يجب الموافقة على الشروط والأحكام",
+
+    Already: "لديك حساب بالفعل؟",
+    phoneNumber: "أدخل رقم هاتفك",
   },
   profile: "الملف الشخصي",
   myBooking: "حجوزاتي",
@@ -65,10 +65,17 @@ export default {
   payment: "دفع",
   security: "أمان",
   languageRegion: "اللغة والمنطقة",
-  darkMode: "الوضع الليلي ",
+  darkMode: "الوضع الليلي",
   privacyPolicy: "سياسة الخصوصية",
   helpCenter: "مركز المساعدة",
   inviteFriends: "دعوة الأصدقاء",
   englishUS: "الإنجليزية (الولايات المتحدة)",
-
+  validation: {
+    required: "هذه الحقل مطلوب",
+    invalidEmail: "عنوان البريد الإلكتروني غير صالح",
+    shortPassword: "يجب أن تكون كلمة المرور على الأقل 6 أحرف طويلة",
+  },
 };
+
+
+
