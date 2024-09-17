@@ -8,10 +8,10 @@ import {
     Switch,
     ScrollView,
     ViewStyle,
-    TextStyle
+    TextStyle,
+    TextInput
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons'; // Import vector icons
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -22,290 +22,246 @@ import { useTranslation } from 'react-i18next';
 import useLanguage from '../../Hooks/language/useLanguage';
 import { toggleDarkMode } from '../../redux/DarkMod/darkModeSlice';
 import LanguageSwitchButton from '../../Hooks/language/LanguageSwitchButton';
-import { darkModeColors, lightModeColors } from '../../constants/theme';
+import { COLORS, darkModeColors, lightModeColors, SIZES } from '../../constants/theme';
+import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
+import { icons, images } from '../../constants';
+import AppIcon from '../../utils/AppIcon';
+ 
 
+const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
+     const { colors, isDarkMode } = useDarkMode();
 
-
-const Profile: React.FC<{ navigation: any }> = ({ navigation }) => {
-    const refRBSheet = useRef<RBSheet>(null);
-    const dark = useSelector((state: RootState) => state.darkmode.darkmode);
-    const dispatch = useDispatch(); // Hook to dispatch actions
-
-    const { t } = useTranslation();
-    const language = useLanguage();
-
-    const toggleDarkModeSwitch = () => {
-        dispatch(toggleDarkMode()); 
-    };
-
-    const renderHeader = () => (
-        <TouchableOpacity style={styles.headerContainer}>
-            <View style={styles.headerLeft}>
-                <FontAwesome
-                    name="user-circle"
-                    size={40}
-                    color={dark ? darkModeColors.white : lightModeColors.greyscale900}
-                />
-                <Text style={[styles.headerTitle, {
-                    color: dark ? darkModeColors.white : lightModeColors.greyscale900
-                }]}>{t('profile')}</Text>
-            </View>
-            <TouchableOpacity>
-                <MaterialIcons
-                    name="more-vert"
-                    size={24}
-                    color={dark ? darkModeColors.secondaryWhite : lightModeColors.greyscale900}
-                />
-            </TouchableOpacity>
-        </TouchableOpacity>
-    );
-
-    const renderProfile = () => {
-        const [image, setImage] = useState<string | undefined>(undefined);
-
-        const pickImage = async () => {
-            try {
-                const tempUri = await launchImagePicker();
-                if (!tempUri) return;
-                setImage(tempUri);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        return (
-            <View style={styles.profileContainer}>
-                <View>
-                    <Image
-                        source={image ? { uri: image } : require('../../../assets/user1.png')}
-                        resizeMode='cover'
-                        style={styles.avatar}
-                    />
-                    <TouchableOpacity
-                        onPress={pickImage}
-                        style={styles.picContainer}>
-                        <MaterialIcons name="edit" size={16} color={dark ? darkModeColors.white : lightModeColors.white} />
-                    </TouchableOpacity>
-                </View>
-                <Text style={[styles.title, { color: dark ? darkModeColors.secondaryWhite : lightModeColors.greyscale900 }]}>fahad samara</Text>
-                <Text style={[styles.subtitle, { color: dark ? darkModeColors.secondaryWhite : lightModeColors.greyscale900 }]}>fahad@gmail.com</Text>
-            </View>
-        );
-    };
-
-    const renderSettings = () => {
-        return (
-            <View style={styles.settingsContainer}>
-            <SettingsItem
-                icon="person-outline"
-                name={t('myBooking')}
-                onPress={() => navigation.navigate("MyBookings")}
+  const renderHeader = ({navigation}) => {
+    return (
+      <View style={styles.headerContainer}>
+        <View style={styles.headerLeft}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("PersonalProfile")}>
+            <Image
+              source={images.logo}
+              resizeMode='cover'
+              style={styles.avatar}
             />
-            <SettingsItem
-                icon="person-outline" 
-                name={t('editProfile')}
-                onPress={() => navigation.navigate("EditProfile")}
-            />
-            <SettingsItem
-                icon="notifications" 
-                name={t('notification')}
-                onPress={() => navigation.navigate("SettingsNotifications")}
-            />
-            <SettingsItem
-                icon="payment" 
-                name={t('payment')}
-                onPress={() => navigation.navigate("SettingsPayment")}
-            />
-            <SettingsItem
-                icon="security" 
-                name={t('security')}
-                onPress={() => navigation.navigate("SettingsSecurity")}
-            />
-        
-            <LanguageSwitchButton language={language} newLanguage={language === 'en' ? 'ar' : 'en'} />
-            <TouchableOpacity
-                style={styles.settingsItemContainer}
-                onPress={() => toggleDarkModeSwitch()}
-            >
-                <View style={styles.leftContainer}>
-                    <MaterialIcons
-                        name="dark-mode"
-                        size={24}
-                        color={dark ? darkModeColors.white : lightModeColors.greyscale900}
-                    />
-                    <Text style={[styles.settingsName, {
-                        color: dark ? darkModeColors.white : lightModeColors.greyscale900
-                    }]}>{t('darkMode')}</Text>
-                </View>
-                <View style={styles.rightContainer}>
-                    <Switch
-                        value={dark}
-                        onValueChange={toggleDarkModeSwitch}
-                        trackColor={{ false: '#EEEEEE', true: '#007BFF' }}
-                        ios_backgroundColor='#FFFFFF'
-                        style={styles.switch}
-                    />
-                </View>
-            </TouchableOpacity>
-            <SettingsItem
-                icon="privacy-tip" // Pass as a string
-                name={t('privacyPolicy')}
-                onPress={() => navigation.navigate("SettingsPrivacyPolicy")}
-            />
-            <SettingsItem
-                icon="help-outline" // Pass as a string
-                name={t('helpCenter')}
-                onPress={() => navigation.navigate("HelpCenter")}
-            />
-            <SettingsItem
-                icon="people" // Pass as a string
-                name={t('inviteFriends')}
-                onPress={() => navigation.navigate("InviteFriends")}
-            />
-            <TouchableOpacity
-                onPress={() => refRBSheet.current?.open()}
-                style={styles.logoutContainer}
-            >
-                <View style={styles.logoutLeftContainer}>
-                    <MaterialIcons
-                        name="logout"
-                        size={24}
-                        color="red"
-                    />
-                    <Text style={styles.logoutText}>{t('logout')}</Text>
-                </View>
-            </TouchableOpacity>
+          </TouchableOpacity>
+          <Text style={[styles.username, { 
+            color: isDarkMode? COLORS.white : COLORS.greyscale900
+          }]}>Hi, fahad</Text>
         </View>
-        );
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Notifications")}>
+          <AppIcon
+            iconSet="Ionicons" 
+           name="notifications-circle"
+          size={24}
+          color={isDarkMode? COLORS.white : COLORS.greyscale900}
+          style={styles.bellIcon}
+          />
+          <View
+            style={styles.Notifications}
+          />
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+
+ const renderSearchBar = ({ navigation }) => {
+    const [search, setSearch] = useState("");
+    const handleInputFocus = () => {
+        navigation.navigate('Search');
     };
 
     return (
-        <SafeAreaView style={styles.safeArea}>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-                {renderHeader()}
-                {renderProfile()}
-                {renderSettings()}
-            </ScrollView>
-            <RBSheet
-                ref={refRBSheet}
-                height={200}
-                openDuration={250}
-                customStyles={{ container: styles.sheetContainer }}>
-                <View style={styles.sheetContent}>
-                    <Text style={styles.sheetTitle}>{t('logout')}</Text>
-                    <Button
-                        title={t('logout')}
-                        onPress={() => {/* Handle logout logic */}}
-                    />
-                </View>
-            </RBSheet>
-        </SafeAreaView>
+        <View style={[styles.searchContainer, {  
+            borderColor: isDarkMode ? COLORS.grayscale700 : "#E5E7EB"
+        }]}>
+            <TouchableOpacity>
+                <AppIcon 
+                    name="search" 
+                    size={24} 
+                    color={isDarkMode ? COLORS.white : "#BABABA"} 
+                    style={styles.searchIcon} 
+                    iconSet="FontAwesome" 
+                />
+            </TouchableOpacity>
+            <TextInput
+                style={styles.searchInput}
+                value={search}
+                onChangeText={(value) => setSearch(value)}
+                placeholder='Search...'
+                placeholderTextColor="#BABABA"
+                onFocus={handleInputFocus}
+            />
+            <TouchableOpacity>
+                <AppIcon 
+                    name="filter" 
+                    size={24} 
+                    color={isDarkMode ? COLORS.white : COLORS.greyscale900} 
+                    style={styles.filterIcon} 
+                    iconSet="Ionicons" 
+                />
+            </TouchableOpacity>
+        </View>
+    );
+};
+     return (
+     <SafeAreaView style={[styles.area, { backgroundColor: colors.background }]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        {renderHeader(navigation)}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {renderSearchBar(navigation)}
+       
+        </ScrollView>
+      </View>
+    </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        
-    },
-    scrollViewContainer: {
-        paddingHorizontal: 20,
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: 15,
-    },
-    headerLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    headerTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: 10,
-    },
-    profileContainer: {
-        alignItems: 'center',
-        marginVertical: 20,
-    },
-    avatar: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
-    picContainer: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        padding: 5,
-        borderRadius: 20,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginTop: 10,
-    },
-    subtitle: {
-        fontSize: 16,
-        color: '#666',
-    },
-    settingsContainer: {
-        marginTop: 20,
-    },
-    settingsItemContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#EEE',
-    },
-    leftContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    settingsName: {
-        fontSize: 16,
-        marginLeft: 10,
-    },
-    rightContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    rightLanguage: {
-        fontSize: 16,
-        marginRight: 10,
-    },
-    switch: {
-        transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],
-    },
-    logoutContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: 20,
-    },
-    logoutLeftContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    logoutText: {
-        fontSize: 16,
-        color: 'red',
-        marginLeft: 10,
-    },
-    sheetContainer: {
-        padding: 20,
-    },
-    sheetContent: {
-        alignItems: 'center',
-    },
-    sheetTitle: {
-        fontSize: 18,
-        marginBottom: 10,
-    },
-});
+  area: {
+    flex: 1,
+    
+  },
+  container: {
+    flex: 1,
 
-export default Profile;
+    padding: 16
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: SIZES.width - 32,
+  },
+  avatar: {
+    height: 30,
+    width: 30,
+    borderRadius: 999,
+    marginRight: 12
+  },
+  username: {
+    fontSize: 16,
+    fontFamily: "semiBold",
+    color: COLORS.black
+  },
+  bellIcon: {
+    width: 24,
+    height: 24,
+    tintColor: COLORS.black
+  },
+  Notifications: {
+    width: 8,
+    height: 8,
+    borderRadius: 8,
+    backgroundColor: COLORS.red,
+    position: "absolute",
+    top: 0,
+    right: 3,
+    zIndex: 99999
+  },
+  headerLeft: {
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  searchContainer: {
+    height: 50,
+    width: SIZES.width - 32,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    marginTop: 22,
+    marginBottom: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 12
+  },
+  searchIcon: {
+    height: 20,
+    width: 20,
+    tintColor: "#BABABA"
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    marginHorizontal: 8,
+    borderRightColor: "#BABABA",
+    borderRightWidth: .4
+  },
+  filterIcon: {
+    width: 20,
+    height: 20,
+    tintColor: COLORS.black
+  },
+  bannerContainer: {
+    width: SIZES.width - 32,
+    height: 154,
+    paddingHorizontal: 28,
+    paddingTop: 28,
+    borderRadius: 32,
+    backgroundColor: COLORS.primary
+  },
+  bannerTopContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  bannerDicount: {
+    fontSize: 12,
+    fontFamily: "medium",
+    color: COLORS.white,
+    marginBottom: 4
+  },
+  bannerDiscountName: {
+    fontSize: 16,
+    fontFamily: "bold",
+    color: COLORS.white
+  },
+  bannerDiscountNum: {
+    fontSize: 46,
+    fontFamily: "bold",
+    color: COLORS.white
+  },
+  bannerBottomContainer: {
+    marginTop: 8
+  },
+  bannerBottomTitle: {
+    fontSize: 14,
+    fontFamily: "medium",
+    color: COLORS.white
+  },
+  bannerBottomSubtitle: {
+    fontSize: 14,
+    fontFamily: "medium",
+    color: COLORS.white,
+    marginTop: 4
+  },
+  bannerItemContainer: {
+    width: "100%",
+    paddingBottom: 10,
+    backgroundColor: COLORS.primary,
+    height: 170,
+    borderRadius: 32,
+  },
+  dotContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#ccc',
+    marginHorizontal: 5,
+  },
+  activeDot: {
+    backgroundColor: COLORS.white,
+  },
+  categoryContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap"
+  }
+})
+
+export default Home;

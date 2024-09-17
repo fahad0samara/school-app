@@ -33,6 +33,7 @@
     "react-native-immersive-mode": "^2.0.2",
     "react-native-localize": "^3.2.1",
     "react-native-modern-datepicker": "^1.0.0-beta.91",
+    "react-native-otp-entry": "^1.7.1",
     "react-native-raw-bottom-sheet": "^3.0.0",
     "react-native-reanimated": "^3.15.2",
     "react-native-restart": "^0.0.27",

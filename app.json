@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        
+        "foregroundImage": "./assets/Splash.jpg",
         "backgroundColor": "#000"
       },
       "package": "com.fahad0.school"

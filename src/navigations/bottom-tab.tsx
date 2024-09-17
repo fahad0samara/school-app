@@ -13,6 +13,11 @@ import Profile from '../screen/Profile/Profil';
 import LanguageSwitchButton from '../Hooks/language/LanguageSwitchButton';
 import Login from '../screen/Auth/Login';
 import registerScreen from '../screen/Auth/Register';
+import OTPVerification from '../screen/ForgotPassword/OTPVerification';
+import ForgotPasswordPhoneNumber from '../screen/ForgotPassword/ForgotPasswordPhoneNumber';
+import ForgotPasswordEmail from '../screen/ForgotPassword/ForgotPasswordEmail';
+import ForgotPasswordMethods from '../screen/ForgotPassword/ForgotPasswordMethods';
+import Home from '../screen/Home/HomeScreen';
 const deviceWidth = Dimensions.get('window').width;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -80,8 +85,8 @@ const BottomTabNavigator = () => {
 
   const TAB_SCREENS = [
     {
-      name: 'Login',
-      component: Login,
+      name: 'Home',
+      component: Home,
       label: t('bottomNavigation.home'),
       icon: 'home',
     },
@@ -93,7 +98,7 @@ const BottomTabNavigator = () => {
     },
     {
       name: 'ProfileStackScreen',
-      component: ProfileStack,
+      component: Profile,
       label: t('bottomNavigation.profile'),
       icon: 'user',
     },
@@ -101,7 +106,7 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Login"
+      initialRouteName="Home"
       screenOptions={{
         lazy: true,
         headerShown: false,
@@ -146,15 +151,16 @@ const BottomTabNavigator = () => {
 const ProfileStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="ProfileScreen"
+      initialRouteName="Login"
       screenOptions={{
    
         headerBackTitleVisible: false,
         headerShown: false,
       }}
     >
+         <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ProfileScreen" component={Profile} />
-      <Stack.Screen name="LanguageSwitch" component={LanguageSwitchButton} />
+ 
     </Stack.Navigator>
   );
 };

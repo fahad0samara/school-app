@@ -118,7 +118,7 @@ const Login = ({ navigation }) => {
           <Button
             title={t('loginScreen.btnLogin')}
             filled
-            onPress={() => navigation.navigate("Main")}
+            onPress={() => navigation.navigate("HomeTabScreen")}
             style={styles.button}
           />
           <TouchableOpacity
