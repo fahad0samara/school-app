@@ -1,7 +1,8 @@
 // src/components/GlobalStyle.js
 import React from 'react';
 import { StyleSheet, View, Text, ViewStyle, TextStyle } from 'react-native';
-import { useDarkMode } from './src/Hooks/darkmode/src/hooks/useDarkMode';
+import { useDarkMode } from './src/Hooks/darkmode/useDarkMode';
+
 
 const GlobalStyle = ({ children }) => {
   const isDarkMode = useDarkMode();

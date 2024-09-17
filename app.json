@@ -3,8 +3,29 @@
     "name": "school",
     "slug": "school",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/splash.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#335EF7"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
     "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/splash.png",
+        "backgroundColor": "#000"
+      },
       "package": "com.fahad0.school"
+    },
+    "web": {
+      "favicon": "./assets/splash.png"
     }
   }
 }

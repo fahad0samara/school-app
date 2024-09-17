@@ -23,13 +23,15 @@ import useLanguage from '../../Hooks/language/useLanguage';
 import { toggleDarkMode } from '../../redux/DarkMod/darkModeSlice';
 import LanguageSwitchButton from '../../Hooks/language/LanguageSwitchButton';
 import { darkModeColors, lightModeColors } from '../../constants/theme';
+import DarkModeToggleItem from '../../Hooks/darkmode/DarkModeToggle';
+import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
 
 
 
 const Profile: React.FC<{ navigation: any }> = ({ navigation }) => {
-    const refRBSheet = useRef<RBSheet>(null);
-    const dark = useSelector((state: RootState) => state.darkmode.darkmode);
-    const dispatch = useDispatch(); // Hook to dispatch actions
+    const refRBSheet = useRef(null);
+    const { colors,isDarkMode  } = useDarkMode();
+    const dispatch = useDispatch();
 
     const { t } = useTranslation();
     const language = useLanguage();
@@ -44,17 +46,17 @@ const Profile: React.FC<{ navigation: any }> = ({ navigation }) => {
                 <FontAwesome
                     name="user-circle"
                     size={40}
-                    color={dark ? darkModeColors.white : lightModeColors.greyscale900}
+                    color={isDarkMode ? darkModeColors.white : lightModeColors.greyscale900}
                 />
                 <Text style={[styles.headerTitle, {
-                    color: dark ? darkModeColors.white : lightModeColors.greyscale900
+                    color: isDarkMode ? darkModeColors.white : lightModeColors.greyscale900
                 }]}>{t('profile')}</Text>
             </View>
             <TouchableOpacity>
                 <MaterialIcons
                     name="more-vert"
                     size={24}
-                    color={dark ? darkModeColors.secondaryWhite : lightModeColors.greyscale900}
+                    color={isDarkMode ? darkModeColors.secondaryWhite : lightModeColors.greyscale900}
                 />
             </TouchableOpacity>
         </TouchableOpacity>
@@ -84,11 +86,11 @@ const Profile: React.FC<{ navigation: any }> = ({ navigation }) => {
                     <TouchableOpacity
                         onPress={pickImage}
                         style={styles.picContainer}>
-                        <MaterialIcons name="edit" size={16} color={dark ? darkModeColors.white : lightModeColors.white} />
+                        <MaterialIcons name="edit" size={16} color={isDarkMode ? darkModeColors.white : lightModeColors.white} />
                     </TouchableOpacity>
                 </View>
-                <Text style={[styles.title, { color: dark ? darkModeColors.secondaryWhite : lightModeColors.greyscale900 }]}>fahad samara</Text>
-                <Text style={[styles.subtitle, { color: dark ? darkModeColors.secondaryWhite : lightModeColors.greyscale900 }]}>fahad@gmail.com</Text>
+                <Text style={[styles.title, { color: isDarkMode ? darkModeColors.secondaryWhite : lightModeColors.greyscale900 }]}>fahad samara</Text>
+                <Text style={[styles.subtitle, { color: isDarkMode ? darkModeColors.secondaryWhite : lightModeColors.greyscale900 }]}>fahad@gmail.com</Text>
             </View>
         );
     };
@@ -123,30 +125,7 @@ const Profile: React.FC<{ navigation: any }> = ({ navigation }) => {
             />
         
             <LanguageSwitchButton language={language} newLanguage={language === 'en' ? 'ar' : 'en'} />
-            <TouchableOpacity
-                style={styles.settingsItemContainer}
-                onPress={() => toggleDarkModeSwitch()}
-            >
-                <View style={styles.leftContainer}>
-                    <MaterialIcons
-                        name="dark-mode"
-                        size={24}
-                        color={dark ? darkModeColors.white : lightModeColors.greyscale900}
-                    />
-                    <Text style={[styles.settingsName, {
-                        color: dark ? darkModeColors.white : lightModeColors.greyscale900
-                    }]}>{t('darkMode')}</Text>
-                </View>
-                <View style={styles.rightContainer}>
-                    <Switch
-                        value={dark}
-                        onValueChange={toggleDarkModeSwitch}
-                        trackColor={{ false: '#EEEEEE', true: '#007BFF' }}
-                        ios_backgroundColor='#FFFFFF'
-                        style={styles.switch}
-                    />
-                </View>
-            </TouchableOpacity>
+        <DarkModeToggleItem toggleDarkModeSwitch={toggleDarkModeSwitch} />
             <SettingsItem
                 icon="privacy-tip" // Pass as a string
                 name={t('privacyPolicy')}
@@ -180,7 +159,7 @@ const Profile: React.FC<{ navigation: any }> = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={[styles.safeArea,{backgroundColor: colors.background }]}>
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 {renderHeader()}
                 {renderProfile()}

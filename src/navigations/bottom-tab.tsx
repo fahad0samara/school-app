@@ -1,39 +1,63 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, I18nManager, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Dimensions, Animated } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
+
 import { useTranslation } from 'react-i18next';
 import { FontAwesome } from '@expo/vector-icons';
-import Home from '../screen/Home/HomeScreen';
+import { useDarkMode } from '../Hooks/darkmode/useDarkMode';
+import { COLORS } from '../constants/theme';
+
 import Courses from '../screen/courses/Courses';
 import Profile from '../screen/Profile/Profil';
-import i18n from '../config/translations';
-import { BackHandler } from 'react-native';
-import LayoutWrapper from './DirectionLayout';
 import LanguageSwitchButton from '../Hooks/language/LanguageSwitchButton';
+import Login from '../screen/Auth/Login';
 
 const deviceWidth = Dimensions.get('window').width;
-
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+// Custom hook to handle animations
+const useTabAnimation = () => {
+  const [animation] = React.useState(new Animated.Value(0));
+
+  const animateTab = () => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      animation.setValue(0);
+    });
+  };
+
+  return { animation, animateTab };
+};
+
 const TabBarLabel = ({ focused, color, label }) => {
+  const { animation, animateTab } = useTabAnimation();
+
+  React.useEffect(() => {
+    if (focused) {
+      animateTab();
+    }
+  }, [focused, animateTab]);
+
   return (
-    <Text
+    <Animated.Text
       style={[
         {
           fontSize: deviceWidth < 600 ? 10 : 12,
           lineHeight: 15,
           textAlign: 'center',
-          color: color || '#D1D1D1',
+          color: color ,
+          transform: [{ scale: animation.interpolate({ inputRange: [0, 1], outputRange: [1, 1.1] }) }],
         },
         focused && { fontWeight: 'bold' },
       ]}
     >
       {label}
-    </Text>
+    </Animated.Text>
   );
 };
 
@@ -43,22 +67,21 @@ const TabBarIcon = ({ focused, icon, color }) => {
       <FontAwesome
         name={icon}
         size={25}
-        color={color || '#D1D1D1'}
+        color={color}
         style={styles.icon}
       />
     </View>
   );
 };
 
-
-
-
 const BottomTabNavigator = () => {
   const { t } = useTranslation();
+  const { isDarkMode, colors } = useDarkMode();
+
   const TAB_SCREENS = [
     {
-      name: 'HomeScreen',
-      component: Home,
+      name: 'Login',
+      component: Login,
       label: t('bottomNavigation.home'),
       icon: 'home',
     },
@@ -77,46 +100,46 @@ const BottomTabNavigator = () => {
   ];
 
   return (
-   
-      <Tab.Navigator
-        initialRouteName="HomeScreen"
-        screenOptions={{
-          lazy: true,
-          headerShown: false,
-          tabBarShowLabel: true,
-          tabBarActiveTintColor: '#007BFF',
-          tabBarStyle: {
-            borderTopWidth: 0,
-            backgroundColor: '#fff',
-            borderTopLeftRadius: 35,
-            borderTopRightRadius: 35,
-            borderColor: 'transparent',
-            position: 'absolute',
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 5 },
-            shadowOpacity: 0.4,
-            shadowRadius: 8,
-            elevation: 10,
-          },
-        }}
-      >
-        {TAB_SCREENS.map((item) => (
-          <Tab.Screen
-            key={item.name}
-            name={item.name}
-            component={item.component}
-            options={{
-              tabBarLabel: ({ focused, color }) => (
-                <TabBarLabel focused={focused} color={color} label={item.label} />
-              ),
-              tabBarIcon: ({ focused, color }) => (
-                <TabBarIcon focused={focused} icon={item.icon} color={color} />
-              ),
-            }}
-          />
-        ))}
-      </Tab.Navigator>
-  
+    <Tab.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        lazy: true,
+        headerShown: false,
+        tabBarShowLabel: true,
+        tabBarActiveTintColor: colors.primary,
+        tabBarStyle: {
+          borderTopWidth: 0,
+                   backgroundColor: isDarkMode ? COLORS.dark1 : COLORS.white,
+
+          borderTopLeftRadius: 35,
+          borderTopRightRadius: 35,
+          borderColor: colors.border,
+          position: 'absolute',
+                 shadowColor: isDarkMode ? COLORS.grayTie : COLORS.black,
+
+          shadowOffset: { width: 0, height: 5 },
+          shadowOpacity: 0.4,
+          shadowRadius: 8,
+          elevation: 10,
+        },
+      }}
+    >
+      {TAB_SCREENS.map((item) => (
+        <Tab.Screen
+          key={item.name}
+          name={item.name}
+          component={item.component}
+          options={{
+            tabBarLabel: ({ focused, color }) => (
+              <TabBarLabel focused={focused} color={color} label={item.label} />
+            ),
+            tabBarIcon: ({ focused, color }) => (
+              <TabBarIcon focused={focused} icon={item.icon} color={color} />
+            ),
+          }}
+        />
+      ))}
+    </Tab.Navigator>
   );
 };
 
@@ -125,24 +148,18 @@ const ProfileStack = () => {
     <Stack.Navigator
       initialRouteName="ProfileScreen"
       screenOptions={{
-        headerTintColor: '#000',
+   
         headerBackTitleVisible: false,
         headerShown: false,
       }}
     >
       <Stack.Screen name="ProfileScreen" component={Profile} />
-          <Stack.Screen name="LanguageSwitch" component={LanguageSwitchButton} />
-
+      <Stack.Screen name="LanguageSwitch" component={LanguageSwitchButton} />
     </Stack.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 8,
-    backgroundColor: 'aliceblue',
-  },
   iconContainer: {
     flex: 1,
     justifyContent: 'center',
