@@ -30,7 +30,7 @@ export default {
   },
   loginScreen: {
     title: "مرحبا بعودتك",
-    suptitle:
+    subtitle:
       "سعداء برؤيتك مرة أخرى. لاستخدام حسابك، يجب عليك تسجيل الدخول أولاً.",
     emailPlaceholder: "البريد الإلكتروني",
     passwordPlaceholder: "كلمة المرور",
@@ -43,7 +43,7 @@ export default {
   },
   registerScreen: {
     title: "إنشاء حساب",
-    suptitle: "املأ النموذج لإنشاء حسابك الجديد",
+    subtitle: "املأ النموذج لإنشاء حسابك الجديد",
     usernamePlaceholder: "اسم المستخدم",
     emailPlaceholder: "البريد الإلكتروني",
     passwordPlaceholder: "كلمة المرور",
@@ -78,7 +78,42 @@ export default {
     invalidEmail: "عنوان البريد الإلكتروني غير صالح",
     shortPassword: "يجب أن تكون كلمة المرور على الأقل 6 أحرف طويلة",
   },
+  ForgotPassword: {
+    titleEmail: "أدخل بريدك الإلكتروني",
+    titlePassword: "أدخل كلمة المرور الخاصة بك",
+    Remember: "تذكرت كلمة المرور؟",
+    forgotPassword: "نسيت كلمة المرور",
+    sendEmail: "أرسل البريد الإلكتروني",
+    emailEmpty: "البريد الإلكتروني مطلوب",
+    ResetPassword: "إعادة تعيين كلمة المرور",
+    codeSentTo: "تم إرسال الرمز إلى {{phoneNumber}}",
+    resendCodeIn: "إعادة إرسال الرمز في {{time}} ثانية",
+  },
+  ForgotPasswordMethods: {
+    title: "نسيت كلمة المرور",
+    selectContact:
+      "اختر تفاصيل الاتصال التي يجب أن نستخدمها لإعادة تعيين كلمة المرور الخاصة بك",
+    viaSMS: "عبر الرسائل القصيرة:",
+    viaEmail: "عبر البريد الإلكتروني:",
+    continue: "استمرار",
+  },
+  ForgotPasswordPhoneNumber: {
+    title: "أدخل رقم هاتفك",
+    rememberMe: "أوافق على الشروط والأحكام",
+    resetPassword: "إعادة تعيين كلمة المرور",
+    phoneNumber: "أدخل رقم هاتفك",
+
+    forgotPasswordText: "هل تذكرت كلمة المرور؟",
+    dontHaveAccount: "ليس لديك حساب؟",
+    signUp: "اشترك",
+  },
+  CreateNewPassword: {
+    Congratulations: "تم بنجاح",
+    Your: "حسابك جاهز للاستخدام. سيتم توجيهك إلى صفحة البداية خلال بضع ثوان.",
+    Continue: "متابعة",
+    CreateYour: "أنشئ كلمة مرور جديدة",
+    NewPassword: "كلمة مرور جديدة",
+    ConfirmPassword: "تأكيد كلمة المرور الجديدة",
+    Rememberme: "تذكرني",
+  },
 };
-
-
-

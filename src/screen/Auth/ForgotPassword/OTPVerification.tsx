@@ -1,25 +1,25 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView,  } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { OtpInput } from "react-native-otp-entry";
 import Checkbox from 'expo-checkbox';
 import { useTranslation } from 'react-i18next';
-import useLanguage from '../../Hooks/language/useLanguage';
-import useActions from '../../Hooks/language/useActions';
-import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
-import { validateInput } from '../../utils/actions/formActions';
-import Header from '../../components/Header';
-import { icons, images } from '../../constants';
-import { COLORS, SIZES } from '../../constants/theme';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import { COLORS } from '../../../constants/theme';
+import { useDarkMode } from '../../../Hooks/darkmode/useDarkMode';
+import useActions from '../../../Hooks/language/useActions';
+import useLanguage from '../../../Hooks/language/useLanguage';
+import Button from '../../../components/Button';
+
 
 const OTPVerification = ({ navigation }) => {
   const [time, setTime] = useState(55);
-       const { t } = useTranslation();
+  const { t } = useTranslation();
   const { language, isRTL } = useLanguage();
   const { setLanguage, setIsRTL } = useActions();
   const { colors, isDarkMode } = useDarkMode();
+  
+  // Example dynamic phone number
+  const phoneNumber = "+966 999 ******99";
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -34,11 +34,10 @@ const OTPVerification = ({ navigation }) => {
   return (
     <SafeAreaView style={[styles.area, { backgroundColor: colors.background }]}>
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Header title="Forgot Password" />
         <ScrollView>
-          <Text style={[styles.title, {
-            color: isDarkMode ? COLORS.white : COLORS.black
-          }]}>Code has been send to +1 111 ******99</Text>
+          <Text style={[styles.title, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+            {t('ForgotPassword.codeSentTo', { phoneNumber })}
+          </Text>
           <OtpInput
             numberOfDigits={4}
             onTextChange={(text) => console.log(text)}
@@ -49,36 +48,36 @@ const OTPVerification = ({ navigation }) => {
               pinCodeContainerStyle: {
                 backgroundColor: isDarkMode ? COLORS.dark2 : COLORS.secondaryWhite,
                 borderColor: isDarkMode ? COLORS.gray : COLORS.secondaryWhite,
-                borderWidth: .4,
+                borderWidth: 0.4,
                 borderRadius: 10,
                 height: 58,
                 width: 58,
               },
               pinCodeTextStyle: {
                 color: isDarkMode ? COLORS.white : COLORS.black,
-              }
-            }} 
-            />
+              },
+            }}
+          />
           <View style={styles.codeContainer}>
-            <Text style={[styles.code, {
-              color: isDarkMode ? COLORS.white : COLORS.greyscale900
-            }]}>Resend code in</Text>
-            <Text style={styles.time}>{`  ${time}  `}</Text>
-            <Text style={[styles.code, {
-              color: isDarkMode ? COLORS.white : COLORS.greyscale900
-            }]}>s</Text>
+            <Text style={[styles.code, { color: isDarkMode ? COLORS.white : COLORS.greyscale900 }]}>
+              {t('ForgotPassword.resendCodeIn', { time })}
+            </Text>
           </View>
         </ScrollView>
         <Button
-          title="Verify"
+          title={t('ForgotPassword.ResetPassword')}
           filled
           style={styles.button}
-          onPress={() => { navigation.navigate("CreateNewPassword") }}
+          onPress={() => {
+            navigation.navigate('CreateNewPassword');
+          }}
         />
       </View>
     </SafeAreaView>
-  )
+  );
 };
+
+
 
 const styles = StyleSheet.create({
   area: {

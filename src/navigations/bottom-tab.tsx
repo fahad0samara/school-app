@@ -55,7 +55,7 @@ const TabBarLabel = ({ focused, color, label }) => {
           fontSize: deviceWidth < 600 ? 10 : 12,
           lineHeight: 15,
           textAlign: 'center',
-          color: color ,
+          color: color,
           transform: [{ scale: animation.interpolate({ inputRange: [0, 1], outputRange: [1, 1.1] }) }],
         },
         focused && { fontWeight: 'bold' },
@@ -114,13 +114,13 @@ const BottomTabNavigator = () => {
         tabBarActiveTintColor: colors.primary,
         tabBarStyle: {
           borderTopWidth: 0,
-                   backgroundColor: isDarkMode ? COLORS.dark1 : COLORS.white,
+          backgroundColor: isDarkMode ? COLORS.dark1 : COLORS.white,
 
           borderTopLeftRadius: 35,
           borderTopRightRadius: 35,
           borderColor: colors.border,
           position: 'absolute',
-                 shadowColor: isDarkMode ? COLORS.grayTie : COLORS.black,
+          shadowColor: isDarkMode ? COLORS.grayTie : COLORS.black,
 
           shadowOffset: { width: 0, height: 5 },
           shadowOpacity: 0.4,
@@ -153,14 +153,14 @@ const ProfileStack = () => {
     <Stack.Navigator
       initialRouteName="Login"
       screenOptions={{
-   
+
         headerBackTitleVisible: false,
         headerShown: false,
       }}
     >
-         <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ProfileScreen" component={Profile} />
- 
+
     </Stack.Navigator>
   );
 };

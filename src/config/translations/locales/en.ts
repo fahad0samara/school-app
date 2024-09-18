@@ -80,13 +80,49 @@ export default {
   },
   myCourse: {
     title: "My Course",
-    filters: {
-      filter: "Filter",
-      all: "All",
-      passed: "Passed",
-      inProgress: "In progress",
-      failed: "Failed",
-    },
+
+    filter: "Filter",
+    all: "All",
+    passed: "Passed",
+    inProgress: "In progress",
+    failed: "Failed",
+  },
+  ForgotPassword: {
+    titleEmail: "Enter to Your Email",
+    titlePassword: "Enter to Your Password",
+    Remember: "Remember the password?",
+    forgotPassword: "Forgot Password",
+    sendEmail: "Send Email",
+    emailEmpty: "Email is required",
+    ResetPassword: "Reset Password",
+    codeSentTo: "Code has been sent to {{phoneNumber}}",
+    resendCodeIn: "Resend code in {{time}}s",
+  },
+  ForgotPasswordMethods: {
+    title: "Forgot Password",
+    selectContact:
+      "Select which contact details should we use to reset your password",
+    viaSMS: "via SMS:",
+    viaEmail: "via Email:",
+    continue: "Continue",
+  },
+  ForgotPasswordPhoneNumber: {
+    title: "Enter Your Phone Number",
+    rememberMe: "I agree to the terms and conditions",
+    phoneNumber: "Enter your phone number",
+    resetPassword: "Reset Password",
+    forgotPasswordText: "Remember the password?",
+    dontHaveAccount: "Don't have an account?",
+    signUp: "Sign Up",
+  },
+  CreateNewPassword: {
+    Congratulations: "Congratulations!",
+    Your: "Your account is ready to use. You will be redirected to the Home page in a few seconds..",
+    Continue: "Continue",
+    CreateYour: "Create Your New Password",
+    NewPassword: "New Password",
+    ConfirmPassword: "Confirm New Password",
+    Rememberme: "Remember me",
   },
 };
 

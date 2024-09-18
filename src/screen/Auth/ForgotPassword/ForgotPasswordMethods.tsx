@@ -1,16 +1,16 @@
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity,  } from 'react-native';
 import React, { useState } from 'react';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
-import useLanguage from '../../Hooks/language/useLanguage';
-import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
-import useActions from '../../Hooks/language/useActions';
-import Header from '../../components/Header';
-import { COLORS, SIZES } from '../../constants/theme';
-import { icons } from '../../constants';
-import Button from '../../components/Button';
-import illustrations from '../../constants/illustrations';
+import useLanguage from '../../../Hooks/language/useLanguage';
+import useActions from '../../../Hooks/language/useActions';
+import { useDarkMode } from '../../../Hooks/darkmode/useDarkMode';
+import illustrations from '../../../constants/illustrations';
+import { COLORS, SIZES } from '../../../constants/theme';
+import AppIcon from '../../../utils/AppIcon';
+import Button from '../../../components/Button';
+
 
 
 const ForgotPasswordMethods = ({ navigation }) => {
@@ -27,7 +27,7 @@ const ForgotPasswordMethods = ({ navigation }) => {
   return (
     <SafeAreaView style={[styles.area, { backgroundColor: colors.background }]}>
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        <Header title="Forgot Password" />
+       
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.passwordContainer}>
             <Image
@@ -38,22 +38,25 @@ const ForgotPasswordMethods = ({ navigation }) => {
           </View>
           <Text style={[styles.title, {
             color: isDarkMode ? COLORS.white : COLORS.greyscale900
-          }]}>Select which contact details
-            should we use to reset your password</Text>
+          }]}>
+            {t('ForgotPasswordMethods.selectContact')}
+          </Text>
           <TouchableOpacity
             style={[
               styles.methodContainer,
-              selectedMethod === 'sms' && { borderColor: COLORS.primary, borderWidth: 2 }, // Customize the border color for SMS
+              selectedMethod === 'sms' && { borderColor: COLORS.primary, borderWidth: 2 },
             ]}
             onPress={() => handleMethodPress('sms')}>
             <View style={styles.iconContainer}>
-              <Image
-                source={icons.chat}
-                resizeMode='contain'
+              <AppIcon
+                name="chatbubbles-outline"
+                iconSet="Ionicons" 
+                size={30}
+                color={isDarkMode ? COLORS.white : COLORS.greyscale900}
                 style={styles.icon} />
             </View>
             <View>
-              <Text style={styles.methodTitle}>via SMS:</Text>
+              <Text style={styles.methodTitle}>{t('ForgotPasswordMethods.viaSMS')}</Text>
               <Text style={[styles.methodSubtitle, {
                 color: isDarkMode ? COLORS.white : COLORS.black
               }]}>+1 111 ******99</Text>
@@ -62,24 +65,26 @@ const ForgotPasswordMethods = ({ navigation }) => {
           <TouchableOpacity
             style={[
               styles.methodContainer,
-              selectedMethod === 'email' && { borderColor: COLORS.primary, borderWidth: 2 }, // Customize the border color for Email
+              selectedMethod === 'email' && { borderColor: COLORS.primary, borderWidth: 2 },
             ]}
             onPress={() => handleMethodPress('email')}>
             <View style={styles.iconContainer}>
-              <Image
-                source={icons.email}
-                resizeMode='contain'
+              <AppIcon
+                name="mail-unread-outline"
+                iconSet="Ionicons" 
+                size={30}
+                color={isDarkMode ? COLORS.white : COLORS.greyscale900}
                 style={styles.icon} />
             </View>
             <View>
-              <Text style={styles.methodTitle}>via Email:</Text>
+              <Text style={styles.methodTitle}>{t('ForgotPasswordMethods.viaEmail')}</Text>
               <Text style={[styles.methodSubtitle, {
                 color: isDarkMode ? COLORS.white : COLORS.black
               }]}>and***ley@yourdomain.com</Text>
             </View>
           </TouchableOpacity>
           <Button
-            title="Continue"
+            title={t('ForgotPasswordMethods.continue')}
             filled
             style={styles.button}
             onPress={() =>
@@ -93,8 +98,9 @@ const ForgotPasswordMethods = ({ navigation }) => {
         </ScrollView>
       </View>
     </SafeAreaView>
-  )
+  );
 };
+
 
 const styles = StyleSheet.create({
   area: {

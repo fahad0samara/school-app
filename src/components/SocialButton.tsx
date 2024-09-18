@@ -4,14 +4,14 @@ import { useDarkMode } from '../Hooks/darkmode/useDarkMode';
 import { COLORS } from '../constants/theme';
 
 
-const SocialButton = ({ icon, onPress, tintColor }) => {
+const SocialButton = ({ icon, onPress, tintColor = null }) => {
 const dark = useDarkMode()
   
   return (
     <TouchableOpacity 
         onPress={onPress} 
         style={[styles.container, { 
-          backgroundColor: dark ? COLORS.dark2 : COLORS.white,
+          backgroundColor: dark ? COLORS.grayscale100 : COLORS.black,
           borderColor: dark ? COLORS.dark2 : COLORS.grayscale200
         }]}>
         <Image
@@ -27,18 +27,17 @@ const dark = useDarkMode()
 
 const styles = StyleSheet.create({
     container: {
-        width: 88,
+        width: 70,
         height: 60,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 16,
-        borderColor: COLORS.grayscale200,
         borderWidth: 1,
         marginHorizontal: 8
     },
     icon: {
-        height: 24,
-        width: 24,
+        height: 30,
+        width: 30,
     }
 })
 

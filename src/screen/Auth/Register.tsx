@@ -1,8 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, Alert, Image, TouchableOpacity, Modal, TouchableWithoutFeedback, FlatList, TextInput } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-
 import { MaterialCommunityIcons, Feather, Ionicons } from "@expo/vector-icons";
 import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
 import { COLORS, SIZES } from '../../constants/theme';
@@ -10,17 +8,13 @@ import { icons } from '../../constants';
 import Input from '../../components/Input';
 import { validateInput } from '../../utils/actions/formActions';
 import { launchImagePicker } from '../../utils/ImagePickerHelper';
-
 import Button from '../../components/Button';
-
 import { images } from '../../constants';
 import { useTranslation } from 'react-i18next';
 import Checkbox from 'expo-checkbox';
 import SocialButton from '../../components/SocialButton';
 import OrSeparator from '../../components/OrSeparator';
 import useLanguage from '../../Hooks/language/useLanguage';
-
-;
 
 const isTestMode = true;
 
@@ -178,8 +172,8 @@ const Register = ({ navigation }) => {
             <Text style={[styles.title, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
               {t('registerScreen.title')}
             </Text>
-            <Text style={[styles.suptitle, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
-              {t('registerScreen.suptitle')}
+            <Text style={[styles.subtitle, { color: isDarkMode ? COLORS.white : COLORS.black }]}>
+              {t('registerScreen.subtitle')}
             </Text>
             <View style={styles.avatarContainer}>
               <Image
@@ -285,7 +279,7 @@ const Register = ({ navigation }) => {
               <Checkbox
                 style={styles.checkbox}
                 value={isChecked}
-                color={isChecked ? COLORS.primary : isDarkMode ? COLORS.primary : "gray"}
+                color={isChecked ? COLORS.accent : isDarkMode ? COLORS.primary : "gray"}
                 onValueChange={setChecked}
               />
               <View style={{ flex: 1 }}>
@@ -298,7 +292,7 @@ const Register = ({ navigation }) => {
           <Button
             title={t('registerScreen.btnSubmit')}
             filled
-            onPress={() => navigation.navigate("Main")}
+            onPress={() => navigation.navigate("BottomTabNavigator")}
             style={styles.button}
           />
           <View>
@@ -316,7 +310,7 @@ const Register = ({ navigation }) => {
               <SocialButton
                 icon={icons.google}
                 onPress={googleAuthHandler}
-                tintColor
+                
               />
             </View>
 
@@ -326,8 +320,8 @@ const Register = ({ navigation }) => {
               color: isDarkMode ? COLORS.white : COLORS.black
             }]}>{t('registerScreen.Already')}</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate("Login")}>
-              <Text style={styles.bottomRight}>{" "}{t('registerScreen.login')}</Text>
+              onPress={() => navigation.navigate("loginScreen")}>
+              <Text style={styles.bottomRight}>{" "}{t('login')}</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -380,7 +374,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 10
   },
-  suptitle: {
+  subtitle: {
     fontSize: 14,
     fontFamily: "bold",
     color: COLORS.black,
