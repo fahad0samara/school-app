@@ -39,7 +39,9 @@ const App = () => {
 
   return (
     <SafeAreaProvider style={styles.container} onLayout={onLayoutRootView}>
-      <LayoutWrapper>
+      <LayoutWrapper
+      
+      >
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={colors.background}

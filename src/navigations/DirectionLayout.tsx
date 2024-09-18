@@ -24,7 +24,7 @@ const LayoutWrapper = ({ children }) => {
   }, [language, isRTL]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { direction: layoutDirection }]}>
       {children}
     </View>
   );
@@ -33,6 +33,7 @@ const LayoutWrapper = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    
 
   },
 });

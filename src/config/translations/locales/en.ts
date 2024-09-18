@@ -78,5 +78,15 @@ export default {
     invalidEmail: "Invalid email address",
     shortPassword: "Password must be at least 6 characters long",
   },
+  myCourse: {
+    title: "My Course",
+    filters: {
+      filter: "Filter",
+      all: "All",
+      passed: "Passed",
+      inProgress: "In progress",
+      failed: "Failed",
+    },
+  },
 };
 

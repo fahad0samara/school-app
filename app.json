@@ -15,12 +15,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+        "supportsRTL": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/Splash.jpg",
-        "backgroundColor": "#000"
+        "backgroundColor": "#000",
+              "supportsRTL": true
       },
       "package": "com.fahad0.school"
     },

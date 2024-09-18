@@ -1,13 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   Text,
   ActivityIndicator,
   TouchableOpacity,
   Alert,
-  I18nManager,
-  LayoutAnimation,
   StyleSheet,
+  ScrollView,
+  Platform
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,50 +16,65 @@ import {
   setLoading,
 } from "../../redux/Language/languageSlice";
 import { RootState } from "../../redux/store";
-import * as Updates from "expo-updates";
 import RBSheet from "react-native-raw-bottom-sheet";
-import { MaterialIcons, FontAwesome } from "@expo/vector-icons";
-import useLanguage from "../../Hooks/language/useLanguage";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useDarkMode } from "../../Hooks/darkmode/useDarkMode";
 import { COLORS, SIZES } from "../../constants/theme";
 import { t } from "i18next";
+import Checkbox from 'expo-checkbox';
+import * as Updates from 'expo-updates';  // Make sure to import Updates
 
 const LanguageSwitchButton = () => {
   const dispatch = useDispatch();
-   const { language, isRTL } = useLanguage();
-  const currentLanguage = useSelector(
-    (state: RootState) => state.language.language
-  );
+  const currentLanguage = useSelector((state: RootState) => state.language.language);
   const loading = useSelector((state: RootState) => state.language.loading);
   const refRBSheet = useRef(null);
   const { colors, isDarkMode } = useDarkMode();
-  const newLanguage = currentLanguage === "en" ? "ar" : "en";
 
-  const handleLanguageChange = async () => {
-    try {
-      dispatch(setLoading(true));
-      dispatch(setLanguage(newLanguage));
-      dispatch(setIsRTL(isRTL));
-      I18nManager.forceRTL(isRTL);
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(currentLanguage);
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'ar', name: 'العربية' },
+   
+  ];
+
+ const handleLanguageChange = async () => {
+  try {
+    if (!selectedLanguage) {
+      Alert.alert("No Language Selected", "Please select a language.");
+      return;
+    }
+    const isRTL = selectedLanguage === 'ar';
+
+    dispatch(setLoading(true));
+    dispatch(setLanguage(selectedLanguage));
+    dispatch(setIsRTL(isRTL));
+
+    if (Platform.OS === 'android') {
+      // Show alert and reload the app
       Alert.alert(
-        "Restart Required",
-        "The app will restart to apply the language and layout direction changes.",
+        "Language Changed",
+        "The language has been changed. The app will now restart to apply the changes.",
         [
-          {
+          { 
             text: "OK",
             onPress: async () => {
-              await Updates.reloadAsync();
-            },
-          },
+              await Updates.reloadAsync(); 
+            }
+          }
         ]
       );
-    } catch (error) {
-      console.error("Error switching language:", error);
-    } finally {
-      dispatch(setLoading(false));
+    } else {
+      // Close the sheet directly on iOS
+      refRBSheet.current?.close();
     }
-  };
+  } catch (error) {
+    console.error("Error switching language:", error);
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
 
   return (
     <View style={{ flex: 1 }}>
@@ -69,7 +84,7 @@ const LanguageSwitchButton = () => {
         onPress={() => refRBSheet.current?.open()}
         style={[
           styles.settingsItemContainer,
-          { backgroundColor: colors.background},
+          { backgroundColor: colors.background },
         ]}
       >
         <View style={styles.leftContainer}>
@@ -94,14 +109,14 @@ const LanguageSwitchButton = () => {
               { color: isDarkMode ? COLORS.white : COLORS.greyscale900 },
             ]}
           >
-            {newLanguage === "en" ? "العربية" : "English"}
+            {languages.find(lang => lang.code === selectedLanguage)?.name || t("selectLanguage")}
           </Text>
         </View>
       </TouchableOpacity>
 
       <RBSheet
         ref={refRBSheet}
-        height={200}
+        height={220}
         openDuration={250}
         customStyles={{
           container: {
@@ -112,19 +127,34 @@ const LanguageSwitchButton = () => {
           },
         }}
       >
-        <TouchableOpacity
-          onPress={handleLanguageChange}
-          style={{ marginBottom: 10 }}
-        >
-          <Text style={[styles.sheetOption, { color: COLORS.primary }]}>
-            {newLanguage === "en" ? "Switch to Arabic" : "Switch to English"}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => refRBSheet.current?.close()}>
-          <Text style={[styles.sheetOption, { color: COLORS.grayscale700 }]}>
-            Cancel
-          </Text>
-        </TouchableOpacity>
+        <ScrollView style={styles.scrollContainer}>
+          {languages.map(lang => (
+            <TouchableOpacity
+              key={lang.code}
+              style={styles.checkboxContainer}
+              onPress={() => setSelectedLanguage(lang.code)}
+            >
+              <Checkbox
+                value={selectedLanguage === lang.code}
+                onValueChange={() => setSelectedLanguage(lang.code)}
+                color={isDarkMode ? COLORS.white : COLORS.greyscale900}
+                style={styles.checkbox}
+              />
+              <Text style={[
+                styles.languageText,
+                { color: isDarkMode ? COLORS.white : COLORS.greyscale900 },
+              ]}>
+                {lang.name}
+              </Text>
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity
+            onPress={handleLanguageChange}
+            style={styles.applyButton}
+          >
+            <Text style={styles.buttonText}>{t("apply")}</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </RBSheet>
     </View>
   );
@@ -136,7 +166,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-
     marginVertical: 7,
     padding: 8,
     borderRadius: 8,
@@ -147,7 +176,7 @@ const styles = StyleSheet.create({
   },
   settingsName: {
     fontSize: 16,
-    fontFamily: "semiBold", // Ensure the correct font is loaded
+    fontFamily: "semiBold",
     marginLeft: 8,
   },
   rightContainer: {
@@ -157,6 +186,35 @@ const styles = StyleSheet.create({
   rightLanguage: {
     fontSize: 18,
     marginRight: 8,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.greyscale300,
+  },
+  checkbox: {
+    marginRight: 10,
+  },
+  languageText: {
+    fontSize: 16,
+    flex: 1,  // Allows the text to take up remaining space
+  },
+  scrollContainer: {
+    width: '100%',
+  },
+  applyButton: {
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: COLORS.primary,
+  },
+  buttonText: {
+    color: COLORS.white,
+    fontSize: 16,
+    textAlign: 'center',
   },
   sheetOption: {
     fontSize: 16,
