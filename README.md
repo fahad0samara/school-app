@@ -50,3 +50,15 @@
 - Created a new utility file (`AppIcon.tsx`) to manage icons efficiently across the app, allowing for consistent styling and easy updates.
 
 ---
+
+### Day 4:
+
+
+- **Create New Password Screen**: Implemented the localization for the `CreateNewPassword` screen in both English and Arabic. Added translations for text elements such as "Create Your New Password," "New Password," "Confirm Password," and others.
+- **UI Enhancements**: Updated the modal and input fields to support localization, ensuring that the text aligns correctly for both RTL (Arabic) and LTR (English) languages.
+- **Refactoring**: Cleaned up the `CreateNewPassword` component code to utilize the `useTranslation` hook for better management of translations across the screen.
+- **Testing**: Conducted tests to verify the new password creation process, ensuring all text is correctly translated and displayed based on the selected language.
+
+---
+
+
