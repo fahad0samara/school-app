@@ -65,13 +65,10 @@ const CreateNewPassword = ({ navigation }) => {
           onPress={() => setModalVisible(false)}>
           <View style={[styles.modalContainer]}>
             <View style={[styles.modalSubContainer, {
-              backgroundColor: isDarkMode ? COLORS.dark2 : COLORS.secondaryWhite
+              backgroundColor: isDarkMode ? COLORS.dark2 : COLORS.secondaryWhite,
+              
             }]}>
-              <Image
-                source={illustrations.passwordSuccess}
-                resizeMode='contain'
-                style={styles.modalIllustration}
-              />
+           
               <Text style={styles.modalTitle}>{t('CreateNewPassword.Congratulations')}</Text>
               <Text style={styles.modalSubtitle}>{t('CreateNewPassword.Your')}</Text>
               <Button
@@ -99,7 +96,7 @@ const CreateNewPassword = ({ navigation }) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.logoContainer}>
             <Image
-              source={isDarkMode ? illustrations.passwordSuccessDark : illustrations.newPassword}
+              source={ illustrations.ForgotPasswordsu }
               resizeMode='contain'
               style={styles.success} 
             />
@@ -168,8 +165,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white
   },
   success: {
-    width: SIZES.width * 0.8,
-    height: 250
+    width: SIZES.width * 0.9,
+    height: 290
   },
   logoContainer: {
     alignItems: "center",
@@ -271,7 +268,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.4)"
   },
   modalSubContainer: {
-    height: 494,
+    height: 300,
     width: SIZES.width * 0.9,
     backgroundColor: COLORS.white,
     borderRadius: 12,

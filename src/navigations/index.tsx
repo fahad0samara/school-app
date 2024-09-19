@@ -9,6 +9,9 @@ import ForgotPasswordMethods from "../screen/Auth/ForgotPassword/ForgotPasswordM
 import ForgotPasswordPhoneNumber from "../screen/Auth/ForgotPassword/ForgotPasswordPhoneNumber";
 import OTPVerification from "../screen/Auth/ForgotPassword/OTPVerification";
 import CreateNewPassword from "../screen/Auth/ForgotPassword/CreateNewPassword";
+import Onboarding0 from "../screen/onboarding/Onboarding0";
+import Onboarding1 from "../screen/onboarding/Onboarding1";
+import Onboarding2 from "../screen/onboarding/Onboarding2";
 
 
 const { width } = Dimensions.get("window");
@@ -41,7 +44,7 @@ const Stack = createStackNavigator();
 export default function AppNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Onboarding0"
       screenOptions={{
         headerTintColor: "#000",
         headerBackTitle: "",
@@ -49,6 +52,9 @@ export default function AppNavigator() {
         headerShown: false,
       }}
     >
+      <Stack.Screen name="Onboarding0" component={Onboarding0} />
+        <Stack.Screen name="Onboarding1" component={Onboarding1} />
+         <Stack.Screen name="Onboarding2" component={Onboarding2} />
       <Stack.Screen name="loginScreen" component={Login} />
        <Stack.Screen name="registerScreen" component={Register} />
        

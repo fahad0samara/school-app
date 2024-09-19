@@ -31,7 +31,7 @@ const ForgotPasswordMethods = ({ navigation }) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.passwordContainer}>
             <Image
-              source={isDarkMode ? illustrations.forgotpassword : illustrations.forgotpassword}
+              source={ illustrations.ForgotPassword}
               resizeMode='contain'
               style={styles.password}
             />
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
     padding: 16
   },
   password: {
-    width: 276,
-    height: 250
+    width: 290,
+    height: 270
   },
   passwordContainer: {
     alignItems: "center",

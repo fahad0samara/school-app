@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        fontWeight: '600', // 'semiBold' is not a default weight, use '600'
+        fontWeight: '600',
+        marginLeft:4
     },
 });
 

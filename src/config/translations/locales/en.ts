@@ -22,6 +22,25 @@ export default {
     restorePurchases: "Restore purchases",
     restorePurchasesSuccess: "Purchases restored successfully",
   },
+
+  Onboarding: {
+    WelcomeTo: "Welcome to",
+    AppName: " App",
+    Description:
+      "We're here to make your learning experience easier by connecting you with top-notch courses for all your educational needs.",
+    Next: "Next",
+    Skip: "Skip",
+    Title: "Enjoy the convenience of",
+    Subtitle: "Learning at your fingertips",
+    Description1:
+      " Access learning courses whenever and wherever you need them. From basic knowledge to advanced skills, we've got you covered.",
+    Title2: "Stay on the top",
+    SubTitle2: "of Your Studies",
+    Description2:
+      "Discover a wide range of educational videos tailored to your university and subjects",
+    Next2: "Let’s Start",
+  },
+
   bottomNavigation: {
     home: "Home",
     courses: "Courses",
