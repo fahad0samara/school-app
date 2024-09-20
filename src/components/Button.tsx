@@ -20,12 +20,12 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
-    const filledBgColor = props.color || '#007BFF'; // Default color if COLORS.primary is not defined
-    const outlinedBgColor = '#FFFFFF'; // Default color if COLORS.white is not defined
+    const filledBgColor = props.color || '#8DBFE2';
+    const outlinedBgColor = '#FFFFFF'; 
     const bgColor = props.filled ? filledBgColor : outlinedBgColor;
     const textColor = props.filled
-        ? props.textColor || '#FFFFFF' // Default color if COLORS.white is not defined
-        : props.textColor || '#007BFF'; // Default color if COLORS.primary is not defined
+        ? props.textColor || '#FFFFFF'
+        : props.textColor || '#007BFF'; 
     const isLoading = props.isLoading || false;
 
     return (
@@ -50,9 +50,9 @@ const Button: React.FC<ButtonProps> = (props) => {
 
 const styles = StyleSheet.create({
     btn: {
-        paddingHorizontal: 16, // Example padding, adjust as needed
-        paddingVertical: 12, // Example padding, adjust as needed
-        borderColor: '#007BFF', // Default border color, adjust as needed
+        paddingHorizontal: 16, 
+        paddingVertical: 12, 
+        borderColor: '#FFFFFF', 
         borderWidth: 1,
         borderRadius: 25,
         alignItems: 'center',

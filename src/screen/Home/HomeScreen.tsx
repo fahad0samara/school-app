@@ -26,6 +26,10 @@ import { COLORS, darkModeColors, lightModeColors, SIZES } from '../../constants/
 import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
 import { icons, images } from '../../constants';
 import AppIcon from '../../utils/AppIcon';
+import CouponCards from './CouponCards';
+import CourseCard from './CourseCard';
+import UniversitiesSection from './UniversitiesSection';
+import CourseList from './CourseList';
  
 
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
@@ -110,7 +114,15 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
         {renderHeader(navigation)}
         <ScrollView showsVerticalScrollIndicator={false}>
           {renderSearchBar(navigation)}
-       
+         <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Coupons</Text>
+          <Text style={styles.sectionSubtitle}>
+            Check out our latest offers
+          </Text>
+          <CourseCard/>
+          <UniversitiesSection/>
+          <CourseList/>
+        </View>
         </ScrollView>
       </View>
     </SafeAreaView>
@@ -199,6 +211,18 @@ const styles = StyleSheet.create({
     paddingTop: 28,
     borderRadius: 32,
     backgroundColor: COLORS.primary
+  },
+   section: {
+    marginVertical: 20,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  sectionSubtitle: {
+    fontSize: 16,
+    color: "#6B7280",
   },
   bannerTopContainer: {
     flexDirection: "row",

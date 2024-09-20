@@ -13,11 +13,10 @@ import Profile from '../screen/Profile/Profil';
 import LanguageSwitchButton from '../Hooks/language/LanguageSwitchButton';
 import Login from '../screen/Auth/Login';
 import registerScreen from '../screen/Auth/Register';
-import OTPVerification from '../screen/ForgotPassword/OTPVerification';
-import ForgotPasswordPhoneNumber from '../screen/ForgotPassword/ForgotPasswordPhoneNumber';
-import ForgotPasswordEmail from '../screen/ForgotPassword/ForgotPasswordEmail';
-import ForgotPasswordMethods from '../screen/ForgotPassword/ForgotPasswordMethods';
+
 import Home from '../screen/Home/HomeScreen';
+import MyCourses from '../screen/my-course/MyCourses';
+
 const deviceWidth = Dimensions.get('window').width;
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -91,8 +90,8 @@ const BottomTabNavigator = () => {
       icon: 'home',
     },
     {
-      name: 'registerScreen',
-      component: registerScreen,
+      name: 'MyCourses',
+      component: MyCourses,
       label: t('bottomNavigation.courses'),
       icon: 'book',
     },
