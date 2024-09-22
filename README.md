@@ -79,8 +79,6 @@
   - Each week of lessons can be expanded or collapsed to show videos and documents associated with that week.
   - Used icons and headers for each lesson with placeholders for video and document count.
 
-Here’s how you can structure your project documentation for the video screen and its features:
-
 ---
 
 ## Day 6: Video Screen Implementation
@@ -94,7 +92,6 @@ Here’s how you can structure your project documentation for the video screen a
 - **Visibility Toggle for Controls**: Added functionality to show controls only when the user touches the screen, improving visual clarity during playback.
 - **Slider Customization**: Styled the slider to be smaller yet visually appealing, maintaining functionality while minimizing screen space usage.
 - **Animated Progress Bar**: Incorporated an animated progress bar that visually indicates playback progress, enhancing user engagement.
-
 
 ---
 
