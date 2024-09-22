@@ -7,7 +7,8 @@ import {
   Alert,
   StyleSheet,
   ScrollView,
-  Platform
+  Platform,
+  I18nManager
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,7 +33,8 @@ const LanguageSwitchButton = () => {
   const { colors, isDarkMode } = useDarkMode();
 
   const [selectedLanguage, setSelectedLanguage] = useState<string>(currentLanguage);
-
+  const newLanguage = currentLanguage === 'en' ? 'ar' : 'en';
+  const isRTL = newLanguage === 'ar';
   const languages = [
     { code: 'en', name: 'English' },
     { code: 'ar', name: 'العربية' },
@@ -45,11 +47,15 @@ const LanguageSwitchButton = () => {
       Alert.alert("No Language Selected", "Please select a language.");
       return;
     }
-    const isRTL = selectedLanguage === 'ar';
+       // Set loading state to true
+      dispatch(setLoading(true));
 
-    dispatch(setLoading(true));
-    dispatch(setLanguage(selectedLanguage));
-    dispatch(setIsRTL(isRTL));
+      // Set language and RTL direction
+      dispatch(setLanguage(newLanguage));
+      dispatch(setIsRTL(isRTL));
+
+      // Apply RTL changes
+      I18nManager.forceRTL(isRTL);
 
     if (Platform.OS === 'android') {
       // Show alert and reload the app

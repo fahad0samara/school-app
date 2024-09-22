@@ -8,19 +8,15 @@ buildscript {
         targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '34')
         kotlinVersion = findProperty('android.kotlinVersion') ?: '1.9.23'
 
-        // NDK version
-        ndkVersion = "26.1.10909125"
     }
-
     repositories {
         google()
         mavenCentral()
     }
-
     dependencies {
-        classpath('com.android.tools.build:gradle:8.0.2')  // Add a specific version for Gradle plugin
-        classpath('com.facebook.react:react-native-gradle-plugin')  // React Native Gradle Plugin
-        classpath('org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23')  // Specify Kotlin Gradle Plugin version
+        classpath('com.android.tools.build:gradle')
+        classpath('com.facebook.react:react-native-gradle-plugin')
+        classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
     }
 }
 
@@ -28,14 +24,13 @@ apply plugin: "com.facebook.react.rootproject"
 
 allprojects {
     repositories {
-        // React Native libraries from npm
         maven {
-            url("$rootDir/../node_modules/react-native/android")
+            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+            url(new File(['node', '--print', "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim(), '../android'))
         }
-
-        // JSC from npm
         maven {
-            url("$rootDir/../node_modules/jsc-android/dist")
+            // Android JSC is installed from npm
+            url(new File(['node', '--print', "require.resolve('jsc-android/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim(), '../dist'))
         }
 
         google()

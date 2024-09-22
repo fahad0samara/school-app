@@ -12,6 +12,9 @@ import CreateNewPassword from "../screen/Auth/ForgotPassword/CreateNewPassword";
 import Onboarding0 from "../screen/onboarding/Onboarding0";
 import Onboarding1 from "../screen/onboarding/Onboarding1";
 import Onboarding2 from "../screen/onboarding/Onboarding2";
+import CourseDetails from "../screen/CourseDetails/CourseDetails/CourseDetails";
+import CourseList from "../screen/Home/CourseList";
+import VideoScreen from "../screen/CourseDetails/video/VideoScreen";
 
 
 const { width } = Dimensions.get("window");
@@ -57,9 +60,10 @@ export default function AppNavigator() {
          <Stack.Screen name="Onboarding2" component={Onboarding2} />
       <Stack.Screen name="loginScreen" component={Login} />
        <Stack.Screen name="registerScreen" component={Register} />
-       
+            <Stack.Screen name="CourseDetails" component={CourseDetails} />
+                    <Stack.Screen name="CourseList" component={CourseList} />
       <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
-
+        <Stack.Screen name="VideoScreen" component={VideoScreen} />
       <Stack.Screen
         name="ForgotPasswordMethods"
         component={ForgotPasswordMethods}

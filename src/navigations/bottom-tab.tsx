@@ -159,6 +159,7 @@ const ProfileStack = () => {
     >
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ProfileScreen" component={Profile} />
+      
 
     </Stack.Navigator>
   );

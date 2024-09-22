@@ -5,33 +5,48 @@ import * as Progress from 'react-native-progress';
 import AppIcon from '../../utils/AppIcon';
 
 const courses = [
-  { id: '1', title: 'Calculus 1 (Math 131)', instructor: 'Muhammad Yashri', progress: 0.4, lessons: 12, imageUri: 'https://cdn.pixabay.com/photo/2017/08/14/11/49/mathematics-2640219_1280.jpg' },
-  { id: '2', title: 'Physics 1', instructor: 'John Doe', progress: 0.6, lessons: 15, imageUri: 'https://media.istockphoto.com/id/1866121335/tr/foto%C4%9Fraf/physics-and-mathematics.jpg?s=1024x1024&w=is&k=20&c=kmvnzAKvujn2OMlfhfwhrqFI_ymMGqN-lDqYcpYniKM=' },
-  // Add more courses here
+  { 
+    id: '1', 
+    title: 'Calculus 1 (Math 131)', 
+    instructor: 'Muhammad Yashri', 
+    progress: 0.4,
+    lessons: 12, 
+    imageUri: 'https://cdn.pixabay.com/photo/2017/08/14/11/49/mathematics-2640219_1280.jpg',
+    description: 'Learn the fundamental concepts of calculus, including limits, derivatives, and integrals.',
+    price: '45 K.D'
+  },
+  { 
+    id: '2', 
+    title: 'Physics 1', 
+    instructor: 'fahad', 
+    progress: 0.6, 
+    lessons: 15, 
+    imageUri: 'https://media.istockphoto.com/id/1866121335/tr/foto%C4%9Fraf/physics-and-mathematics.jpg?s=1024x1024&w=is&k=20&c=kmvnzAKvujn2OMlfhfwhrqFI_ymMGqN-lDqYcpYniKM=',
+    description: 'An introduction to the principles of physics, covering topics like motion, energy, and waves.',
+    price: '50 K.D'
+  },
+  // Add more courses as needed
 ];
 
-const CourseCard = ({ course }) => {
+const Card = ({ course, navigation }) => {
+  const handlePress = () => {
+    navigation.navigate('CourseDetails', { course });
+  };
+
   return (
-    <TouchableOpacity style={styles.card}>
-      {/* Course Thumbnail and Details */}
+    <TouchableOpacity style={styles.card} onPress={handlePress}>
       <View style={styles.headerContainer}>
         <Image source={{ uri: course.imageUri }} style={styles.thumbnail} />
-
         <View style={styles.detailsContainer}>
-          {/* Course Title and Instructor */}
           <Text style={styles.courseTitle}>{course.title}</Text>
           <Text style={styles.instructorName}>{course.instructor}</Text>
         </View>
       </View>
-
-      {/* Lesson Progress (takes full width, below image and title) */}
       <View style={styles.progressContainer}>
-      <View
-      style={styles.Progress1}
-      >
+        <View style={styles.Progress1}>
           <Text style={styles.progressLabel}>Lesson Progress</Text>
-         <Text style={styles.progressText}>{`${course.progress * 100}%`}</Text>
-      </View>
+          <Text style={styles.progressText}>{`${course.progress * 100}%`}</Text>
+        </View>
         <View style={styles.progressBarContainer}>
           <Progress.Bar 
             progress={course.progress} 
@@ -41,46 +56,43 @@ const CourseCard = ({ course }) => {
             borderRadius={5}
             style={styles.progressBar} 
           />
-         
         </View>
       </View>
-
-      {/* Lesson Count */}
       <View style={styles.lessonInfoContainer}>
-       <View style={styles.lessonInfoContainer}>
-        <AppIcon 
-          name="film" 
-          size={24} 
-          color="#FE8A54"
-          style={styles.playCircle} 
-           iconSet="Ionicons"
-        />
-        <Text style={styles.lessonCount}>{`${course.lessons} Lessons`}</Text>
-      </View>
-              <AppIcon
+        <View style={styles.lessonInfoContainer}>
+          <AppIcon 
+            name="film" 
+            size={24} 
+            color="#FE8A54"
+            style={styles.playCircle} 
+            iconSet="Ionicons"
+          />
+          <Text style={styles.lessonCount}>{`${course.lessons} Lessons`}</Text>
+        </View>
+        <AppIcon
           name="play-circle"
           size={35}
           color="#3498db"
           style={styles.playCircle}
           iconSet="FontAwesome" 
         />
-      
       </View>
     </TouchableOpacity>
   );
 };
 
-const CourseList = () => {
+
+const CourseCard = ({ navigation }) => {
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
       {courses.map(course => (
-        <CourseCard key={course.id} course={course} />
+        <Card key={course.id} course={course} navigation={navigation} />
       ))}
     </ScrollView>
   );
 };
 
-export default CourseList;
+export default CourseCard;
 
 const styles = StyleSheet.create({
   scrollViewContent: {

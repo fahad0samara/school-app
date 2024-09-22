@@ -5,6 +5,29 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/Splash.jpg",
+     "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+      "plugins": [
+    [
+      "react-native-video",
+      {
+     
+        "enableNotificationControls": true,
+        "androidExtensions": {
+          "useExoplayerRtsp": false,
+          "useExoplayerSmoothStreaming": false,
+          "useExoplayerHls": false,
+          "useExoplayerDash": false
+        }
+  
+      }
+    ]
+  ],
+
+
+
+
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/Splash.jpg",

@@ -35,7 +35,7 @@ import CourseList from './CourseList';
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
      const { colors, isDarkMode } = useDarkMode();
 
-  const renderHeader = ({navigation}) => {
+  const renderHeader = () => {
     return (
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
@@ -69,10 +69,10 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
   }
 
 
- const renderSearchBar = ({ navigation }) => {
+ const renderSearchBar = () => {
     const [search, setSearch] = useState("");
     const handleInputFocus = () => {
-        navigation.navigate('Search');
+       navigation.navigate('Search');
     };
 
     return (
@@ -111,17 +111,19 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
      return (
      <SafeAreaView style={[styles.area, { backgroundColor: colors.background }]}>
       <View style={[styles.container, { backgroundColor: colors.background }]}>
-        {renderHeader(navigation)}
+        {renderHeader()}
         <ScrollView showsVerticalScrollIndicator={false}>
-          {renderSearchBar(navigation)}
+          {renderSearchBar()}
          <View style={styles.section}>
           <Text style={styles.sectionTitle}>Coupons</Text>
           <Text style={styles.sectionSubtitle}>
             Check out our latest offers
           </Text>
-          <CourseCard/>
+         <CourseCard navigation={navigation} />
           <UniversitiesSection/>
-          <CourseList/>
+         <CourseList 
+         
+          />
         </View>
         </ScrollView>
       </View>

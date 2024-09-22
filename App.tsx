@@ -10,6 +10,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { COLORS } from './src/constants/theme';
 import { FONTS } from './src/constants/fonts';
 import { useTranslation } from 'react-i18next';
+import CourseEnroll from './src/screen/BuyCourse/CourseEnroll';
+import CourseSummary from './src/screen/BuyCourse/CourseSummary';
+import CoursePurchase from './src/screen/BuyCourse/StepIndicators/CoursePurchase';
 
 const { width, height } = Dimensions.get('window');
 
@@ -38,10 +41,12 @@ const App = () => {
   }
 
   return (
-    <SafeAreaProvider style={styles.container} onLayout={onLayoutRootView}>
+    <SafeAreaProvider   style={styles.container} onLayout={onLayoutRootView}>
+      
       <LayoutWrapper
       
       >
+        
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={colors.background}
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
   overlay: {
     width,
     height,
-
+      paddingTop: Platform.OS === 'android' ? 24 : StatusBar.currentHeight,
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 0,
