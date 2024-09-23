@@ -5,16 +5,21 @@ import SummaryScreen from './SummaryScreen';
 import PaymentMethodScreen from './PaymentMethodScreen';
 import CardDetailsScreen from './CardDetailsScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
+import { useDarkMode } from "../../../Hooks/darkmode/useDarkMode"; // Import dark mode hook
 
 const { width } = Dimensions.get('window');
 
 const CoursePurchase = () => {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.dir() === 'rtl'; // Check if the current language is RTL
+  const { colors } = useDarkMode(); // Get colors from the dark mode hook
   const [currentStep, setCurrentStep] = useState(1);
   const slideAnim = useRef(new Animated.Value(0)).current;
 
   const handleStepChange = (step) => {
     Animated.timing(slideAnim, {
-      toValue: -(step - 1) * width,
+      toValue: (isRTL ? (step - 1) * width : -(step - 1) * width),
       duration: 300,
       useNativeDriver: true,
     }).start();
@@ -26,22 +31,22 @@ const CoursePurchase = () => {
   }, [currentStep]);
 
   return (
-        <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#f0f4fa" />
-    <View style={styles.container}>
-      <StepIndicator currentStep={currentStep} setStep={handleStepChange} />
-      <Animated.View style={[styles.slideContainer, { transform: [{ translateX: slideAnim }] }]}>
-        <View style={styles.screen}>
-          <SummaryScreen onContinue={() => handleStepChange(2)} />
-        </View>
-        <View style={styles.screen}>
-          <PaymentMethodScreen onContinue={() => handleStepChange(3)} />
-        </View>
-        <View style={styles.screen}>
-          <CardDetailsScreen onPayNow={() => alert('Payment Successful')} />
-        </View>
-      </Animated.View>
-    </View>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <StatusBar  backgroundColor={colors.background} />
+      <View style={styles.container}>
+        <StepIndicator currentStep={currentStep} setStep={handleStepChange} />
+        <Animated.View style={[styles.slideContainer, { transform: [{ translateX: slideAnim }] }]}>
+          <View style={[styles.screen, { backgroundColor: colors.card }]}>
+            <SummaryScreen onContinue={() => handleStepChange(2)} />
+          </View>
+          <View style={[styles.screen, { backgroundColor: colors.card }]}>
+            <PaymentMethodScreen onContinue={() => handleStepChange(3)} />
+          </View>
+          <View style={[styles.screen, { backgroundColor: colors.card }]}>
+            <CardDetailsScreen onPayNow={() => alert('Payment Successful')} />
+          </View>
+        </Animated.View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -49,8 +54,6 @@ const CoursePurchase = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  backgroundColor: '#f0f4fa',
-
   },
   slideContainer: {
     flexDirection: 'row',
@@ -59,9 +62,9 @@ const styles = StyleSheet.create({
   },
   screen: {
     width: width,
-    flex: 1, // Allows the screen content to take up available space
-    justifyContent: 'space-between', // Space between content and button
-    paddingVertical: 25, // Add padding to give some spacing around elements
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingVertical: 25,
   },
 });
 

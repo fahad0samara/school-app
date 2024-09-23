@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import IconI from 'react-native-vector-icons/Ionicons';
 import styles from './styles'; // Import your styles here
 import { images } from '../../constants'; // Ensure images are correctly imported
+import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
 
 const hitSlop = { top: 5, bottom: 5, left: 5, right: 5 };
 
@@ -26,7 +27,7 @@ const MyCourse: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const inputSearch = useRef<TextInput>(null);
-
+  const { colors, isDarkMode } = useDarkModxse();
   const onAnimatedSearch = () => {
     setShowAnimatedSearch(true);
     setTimeout(() => {

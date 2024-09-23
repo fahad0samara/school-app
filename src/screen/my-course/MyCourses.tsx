@@ -12,6 +12,7 @@ import {
   StatusBar,
 } from "react-native";
 import AppIcon from "../../utils/AppIcon";
+import { useDarkMode } from "../../Hooks/darkmode/useDarkMode";
 const screenWidth = Dimensions.get("window").width;
 // Example course data with images
 const courses = [
@@ -55,7 +56,7 @@ const courses = [
 
 const MyCoursesTab = () => {
   const [activeTab, setActiveTab] = useState("All");
-
+  const { colors, isDarkMode } = useDarkMode();
   // Filter courses based on the active tab
   const getFilteredCourses = () => {
     if (activeTab === "Ongoing") {
@@ -67,14 +68,14 @@ const MyCoursesTab = () => {
   };
 
   const renderCourse = ({ item }) => (
-    <View style={styles.courseCard}>
+      <View style={[styles.courseCard, { backgroundColor: colors.card }]}>
       {/* Course Image */}
       <Image source={{ uri: item.image }} style={styles.courseImage} />
 
       {/* Course Details */}
       <View style={styles.courseDetails}>
-        <Text style={styles.courseTitle}>{item.title}</Text>
-        <Text style={styles.courseInfo}>{item.teacher}</Text>
+       <Text style={[styles.courseTitle, { color: colors.text }]}>{item.title}</Text>
+       <Text style={[styles.courseInfo, { color: colors.text }]}>{item.teacher}</Text>
         <View style={styles.lessonInfoContainer}>
           <View style={styles.lessonInfoContainer}>
             <AppIcon
@@ -84,7 +85,7 @@ const MyCoursesTab = () => {
               style={styles.playCircle}
               iconSet="Ionicons"
             />
-            <Text style={styles.lessonCount}>{item.progress}</Text>
+          <Text style={[styles.lessonCount, { color: colors.text }]}>{item.progress}</Text>
           </View>
           {/* Course Status or Play Button */}
           <View style={styles.courseStatus}>
@@ -106,58 +107,32 @@ const MyCoursesTab = () => {
   );
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+  <SafeAreaView style={[styles.safeArea, { backgroundColor: colors.background }]}>
       <View style={styles.container}>
+        <Text style={{ color: colors.text, fontSize: 20, marginTop: 10,
+        textAlign:"center"
+
+         }}>
+          {activeTab}
+        </Text>
         {/* Tab Bar */}
         <View style={styles.tabBar}>
-          <TouchableOpacity
-            style={[styles.tabButton, activeTab === "All" && styles.activeTab]}
-            onPress={() => setActiveTab("All")}
-          >
-            <Text
-              style={
-                activeTab === "All" ? styles.activeText : styles.inactiveText
-              }
+          
+          {["All", "Ongoing", "Complete"].map((tab) => (
+            <TouchableOpacity
+              key={tab}
+              style={[styles.tabButton, activeTab === tab && styles.activeTab]}
+              onPress={() => setActiveTab(tab)}
             >
-              All
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.tabButton,
-              activeTab === "Ongoing" && styles.activeTab,
-            ]}
-            onPress={() => setActiveTab("Ongoing")}
-          >
-            <Text
-              style={
-                activeTab === "Ongoing"
-                  ? styles.activeText
-                  : styles.inactiveText
-              }
-            >
-              Ongoing
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[
-              styles.tabButton,
-              activeTab === "Complete" && styles.activeTab,
-            ]}
-            onPress={() => setActiveTab("Complete")}
-          >
-            <Text
-              style={
-                activeTab === "Complete"
-                  ? styles.activeText
-                  : styles.inactiveText
-              }
-            >
-              Complete
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={
+                  activeTab === tab ? styles.activeText : styles.inactiveText
+                }
+              >
+                {tab}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
         {/* Course List */}
@@ -175,11 +150,13 @@ const MyCoursesTab = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#fff",
+ 
+    
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+
+    
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0, 
   },
   lessonInfoContainer: {

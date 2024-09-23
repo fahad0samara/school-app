@@ -1,10 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { ScrollView, Text, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import SectionHeader from './common/SectionHeader';
+import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
 
 // Get screen width for responsive card sizing
 const screenWidth = Dimensions.get('window').width;
-import { Shadow } from 'react-native-shadow-2';
 
 const courses = [
   {
@@ -55,76 +56,76 @@ const courses = [
   // Add more courses as needed
 ];
 
-
 const CourseList = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+ const {colors ,isDarkMode } = useDarkMode(); 
   const handleCoursePress = (course) => {
-  console.log('Navigating to CourseDetails with course:', course);
-  navigation.navigate('CourseDetails', { course });
-};
+    console.log('Navigating to CourseDetails with course:', course);
+    navigation.navigate('CourseDetails', { course });
+  };
 
-    return (
-     <ScrollView 
+  return (
+     <View style={styles.container}>
+  
+  <ScrollView 
       horizontal 
       showsHorizontalScrollIndicator={false} 
       style={styles.scrollContainer}
       contentContainerStyle={styles.contentContainer}
     >
+ 
       {courses.map((course) => (
-  <TouchableOpacity 
-  key={course.id} 
-  style={styles.courseContainer} 
-  onPress={() => handleCoursePress(course)
-  }
->
-
+        <TouchableOpacity 
+          key={course.id} 
+          style={[styles.courseContainer,{ backgroundColor: colors.card  }]} 
+          onPress={() => handleCoursePress(course)}
+        >
           <Image
             source={{ uri: course.imageUrl }}
             style={styles.image}
           />
-          
-          <View style={styles.textContainer}>
-            <Text style={styles.courseSubtitle}>{course.subtitle}</Text>
-            <Text style={styles.courseTitle}>{course.title}</Text>
-            <Text style={styles.instructor}>{course.instructor}</Text>
+          <View style={[styles.textContainer]}>
+            <Text style={[styles.courseSubtitle,{color: colors.text} ]}>{course.subtitle}</Text>
+            <Text style={[styles.courseTitle,{color: colors.text} ]}>{course.title}</Text>
+            <Text style={[styles.instructor,{color: colors.text} ]}>{course.instructor}</Text>
           </View>
         </TouchableOpacity>
       ))}
     </ScrollView>
+     </View>
+  
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   scrollContainer: {
-
     marginBottom: 40,
   },
   contentContainer: {
-        paddingVertical: 5,
+    
   },
   courseContainer: {
-    width: screenWidth * 0.6, // Adjust width based on screen size for responsiveness
-   
+    width: screenWidth * 0.6,
+    height: screenWidth * 0.5,
     borderRadius: 15,
     marginRight: 15,
-    
-   backgroundColor: '#fff',
-    paddingVertical: 7,
-    paddingHorizontal: 11, // Match the requested padding
  
-     shadowColor: '#698296',
-    shadowOffset: {
-      width: 1, // Mimicking the box-shadow's x-offset
-      height: 3, // Mimicking the box-shadow's y-offset
-    },
-    shadowOpacity: 0.1, // Corresponds to lighter shadow opacity (0D, 0A, etc.)
-    shadowRadius: 6, // Matches the spread radius
-    elevation: 5, // For Android shadow
+    paddingVertical: 7,
+    paddingHorizontal: 11,
+    shadowColor: '#698296',
+    shadowOffset: { width: 1, height: 3 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5,
   },
   image: {
     width: '100%',
-    height: 100, // Set fixed height for the image
+    height: 100,
     resizeMode: 'cover',
+    borderRadius: 10, // Optional: Adds rounded corners to the image
   },
   textContainer: {
     padding: 10,
@@ -148,4 +149,3 @@ const styles = StyleSheet.create({
 });
 
 export default CourseList;
-

@@ -15,6 +15,11 @@ import Onboarding2 from "../screen/onboarding/Onboarding2";
 import CourseDetails from "../screen/CourseDetails/CourseDetails/CourseDetails";
 import CourseList from "../screen/Home/CourseList";
 import VideoScreen from "../screen/CourseDetails/video/VideoScreen";
+import CourseEnroll from "../screen/BuyCourse/CourseEnroll";
+import CourseSummary from "../screen/BuyCourse/CourseSummary";
+import SummaryScreen from "../screen/BuyCourse/StepIndicators/SummaryScreen";
+import CoursePurchase from "../screen/BuyCourse/StepIndicators/CoursePurchase";
+import SearchScreen from "../screen/Home/SearchScreen";
 
 
 const { width } = Dimensions.get("window");
@@ -79,6 +84,9 @@ export default function AppNavigator() {
       />
       <Stack.Screen name="OTPVerification" component={OTPVerification} />
       <Stack.Screen name="CreateNewPassword" component={CreateNewPassword} />
+        <Stack.Screen name="CourseEnroll" component={CourseEnroll} />
+  <Stack.Screen name="SearchScreen" component={SearchScreen} />
+            <Stack.Screen name="CoursePurchase" component={CoursePurchase} />
     </Stack.Navigator>
   );
 }

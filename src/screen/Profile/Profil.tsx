@@ -115,7 +115,7 @@ const Profile: React.FC<{ navigation: any }> = ({ navigation }) => {
             />
             <SettingsItem
                 icon="payment" 
-                name={t('payment')}
+                name={t('paymentprofile')}
                 onPress={() => navigation.navigate("SettingsPayment")}
             />
             <SettingsItem

@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Checkbox from 'expo-checkbox';
 import { useTranslation } from 'react-i18next';
-import { images } from '../../../constants';
+import { illustrations, images } from '../../../constants';
 import { SIZES, COLORS } from '../../../constants/theme';
 import { useDarkMode } from '../../../Hooks/darkmode/useDarkMode';
 import useActions from '../../../Hooks/language/useActions';
@@ -119,9 +119,9 @@ const ForgotPasswordPhoneNumber = ({ navigation }) => {
         <ScrollView style={{ marginVertical: 54 }} showsVerticalScrollIndicator={false}>
           <View style={styles.logoContainer}>
             <Image
-              source={images.logo}
+              source={illustrations.ForgotPassword1}
               resizeMode='contain'
-              style={styles.logo}
+            
             />
           </View>
           <Text style={[styles.title, {

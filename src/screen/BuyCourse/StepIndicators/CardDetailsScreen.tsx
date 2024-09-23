@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import PaymentModal from "./PaymentModal";
+import { useTranslation } from "react-i18next";
+import moment from "moment";
+import { useDarkMode } from "../../../Hooks/darkmode/useDarkMode";
 
 const CardDetails = () => {
+  const currentDate = moment().format("DD-MM-YYYY"); // Get current date dynamically
+  const { t } = useTranslation();
+  const { colors, isDarkMode } = useDarkMode(); 
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState({
     title: "",
@@ -23,17 +22,16 @@ const CardDetails = () => {
 
     if (paymentSuccess) {
       setModalContent({
-        title: "Congratulations",
-        message: "Your Payment is Successfully Processed.",
-        buttonText: "Start Learning",
+        title: t('CardDetails.congratulations'),
+        message: t('CardDetails.paymentSuccessMessage'),
+        buttonText: t('CardDetails.startLearning'),
         isSuccess: true,
       });
     } else {
       setModalContent({
-        title: "Payment Failed",
-        message:
-          "There was an issue processing your payment. Please try again.",
-        buttonText: "Retry Payment",
+        title: t('CardDetails.paymentFailed'),
+        message: t('CardDetails.paymentFailedMessage'),
+        buttonText: t('CardDetails.retryPayment'),
         isSuccess: false,
       });
     }
@@ -46,59 +44,68 @@ const CardDetails = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.sectionTitle}>Add Details</Text>
+        <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('CardDetails.addDetails')}</Text>
 
         <TextInput
-          style={styles.input}
-          placeholder="Card number"
+          style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border }]}
+          placeholder={t('CardDetails.cardNumber')}
+          placeholderTextColor={colors.text}
           keyboardType="numeric"
         />
 
         <View style={styles.row}>
           <TextInput
-            style={[styles.input, styles.smallInput]}
-            placeholder="CVV Number"
+            style={[styles.input, styles.smallInput, { backgroundColor: colors.card, borderColor: colors.border }]}
+            placeholder={t('CardDetails.cvv')}
+            placeholderTextColor={colors.text}
             keyboardType="numeric"
           />
           <TextInput
-            style={[styles.input, styles.smallInput]}
-            placeholder="Expire Date"
+            style={[styles.input, styles.smallInput, { backgroundColor: colors.card, borderColor: colors.border }]}
+            placeholder={t('CardDetails.expiryDate')}
+           placeholderTextColor={colors.text}
           />
         </View>
 
-        <TextInput style={styles.input} placeholder="Cardholder name" />
+        <TextInput
+          style={[styles.input, { backgroundColor: colors.card, borderColor: colors.border }]}
+          placeholder={t('CardDetails.cardHolderName')}
+       placeholderTextColor={colors.text}
+        />
 
-        <View style={styles.purchaseDetailsContainer}>
-          <Text style={styles.sectionTitle}>Purchase Details</Text>
-
+        {/* Purchase Details Section */}
+        <View style={[styles.purchaseDetailsContainer, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>{t('Summary.title')}:</Text>
           <View style={styles.purchaseDetail}>
-            <Text>Date</Text>
-            <Text>01-07-2024</Text>
+            <Text style={{ color: colors.text }}>{t('Summary.date')}</Text>
+            <Text style={{ color: colors.text }}>{currentDate}</Text>
           </View>
 
           <View style={styles.purchaseDetail}>
-            <Text>Price of course</Text>
-            <Text>45 K.D</Text>
+            <Text style={{ color: colors.text }}>{t('Summary.coursePrice')}</Text>
+            <Text style={{ color: colors.text }}>45 K.D</Text>
           </View>
 
           <View style={styles.purchaseDetail}>
-            <Text>Coupon</Text>
-            <Text>Added 20% Discount</Text>
+            <Text style={{ color: colors.text }}>{t('Summary.coupon')}</Text>
+            <Text style={{ color: colors.text }}>{t('Summary.discount')}</Text>
           </View>
 
-          <TouchableOpacity style={styles.finalPriceButton}>
-            <Text style={styles.finalPriceButtonText}>Final Price: 36 K.D</Text>
+          <TouchableOpacity style={[styles.finalPriceButton, { backgroundColor: colors.card }]}>
+            <Text style={[styles.finalPriceButtonText, { color: colors.primary }]}>
+              {t('Summary.finalPrice')}: 36 K.D
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
 
-      <TouchableOpacity style={styles.payButton} onPress={handlePayNow}>
-        <Text style={styles.payButtonText}>Pay Now</Text>
+      <TouchableOpacity style={[styles.payButton, { backgroundColor: colors.primary }]} onPress={handlePayNow}>
+        <Text style={styles.payButtonText}>{t('CardDetails.payNow')}</Text>
       </TouchableOpacity>
 
-      {/* Generalized Modal for Success or Error */}
+      {/* Payment Modal */}
       <PaymentModal
         isVisible={isModalVisible}
         onClose={closeModal}
@@ -110,10 +117,10 @@ const CardDetails = () => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f4fa",
     padding: 20,
   },
   scrollView: {
@@ -125,7 +132,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    backgroundColor: "#FFFFFF",
     borderRadius: 14,
     width: 350,
     height: 48,
@@ -133,15 +139,10 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "#ddd",
-
-    // Shadow properties for iOS (and fallback for Android)
     shadowColor: "#698296",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.12,
     shadowRadius: 20,
-
-    // For Android shadows, we use elevation
     elevation: 5,
   },
   row: {
@@ -149,19 +150,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   smallInput: {
-    width: "48%", // Adjust to make both inputs sit side-by-side
+    width: "48%",
   },
-
-  // New Purchase Details Styling
   purchaseDetailsContainer: {
-    backgroundColor: "#FFFFFF",
     padding: 15,
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
     marginBottom: 20,
-
-    // Shadow
     shadowColor: "#698296",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.12,
@@ -173,19 +167,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 10,
   },
-
-  // Final Price Button Styling
   finalPriceButton: {
     width: 320,
     height: 55,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 18.92,
-    backgroundColor: "#FFFFFF",
-    borderColor: "#000",
     borderWidth: 1,
-
-    // Shadow
     shadowColor: "#698296",
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.12,
@@ -193,18 +181,14 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   finalPriceButtonText: {
-    color: "#FE8A54",
     fontSize: 18,
     fontWeight: "bold",
   },
-
-  // Pay Now Button
   payButton: {
     position: "absolute",
-    bottom: 20, // Fixed at bottom
+    bottom: 20,
     left: 20,
     right: 20,
-    backgroundColor: "#007bff",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",

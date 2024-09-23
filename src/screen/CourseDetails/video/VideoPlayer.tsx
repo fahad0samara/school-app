@@ -79,12 +79,13 @@ const VideoSection = ({ videoUrl }: { videoUrl: string }) => {
         <TouchableOpacity onPress={togglePlayback} style={styles.controlButton}>
           <Ionicons name={isPlaying ? "pause" : "play"} size={30} color="#fff" />
         </TouchableOpacity>
+          <TouchableOpacity onPress={handleReplay} style={styles.controlButton}>
+          <Ionicons name="reload" size={30} color="#fff" />
+        </TouchableOpacity>
         <Text style={styles.timeText}>
           {Math.floor(videoPosition / 1000)} / {Math.floor(videoDuration / 1000)} sec
         </Text>
-        <TouchableOpacity onPress={handleReplay} style={styles.controlButton}>
-          <Ionicons name="reload" size={30} color="#fff" />
-        </TouchableOpacity>
+      
         <TouchableOpacity onPress={handleFullscreen} style={styles.controlButton}>
           <Ionicons name="expand-outline" size={30} color="#fff" />
         </TouchableOpacity>
@@ -105,17 +106,17 @@ const styles = StyleSheet.create({
   },
   controlsOverlay: {
     position: "absolute",
-    top: 0,
+    bottom: 0,
     left: 0,
     right: 0,
-    padding: 10,
+    padding: 5,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.3)", // Transparent background for overlay
   },
   controlButton: {
-    padding: 10,
+    padding: 5,
   },
   timeText: {
     color: "#fff",

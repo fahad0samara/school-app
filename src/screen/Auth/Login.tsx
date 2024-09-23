@@ -11,7 +11,7 @@ import Input from '../../components/Input';
 import OrSeparator from '../../components/OrSeparator';
 import Header from '../../components/Header';
 import icons from '../../constants/icons';
-import { images } from '../../constants';
+import { illustrations, images } from '../../constants';
 import { useTranslation } from 'react-i18next';
 
 const isTestMode = true;
@@ -67,9 +67,9 @@ const Login = ({ navigation }) => {
         <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={false}>
           <View style={styles.logoContainer}>
             <Image
-              // source={images.logo}
+              source={illustrations.logo}
               resizeMode='contain'
-              style={styles.logo}
+            
             />
           </View>
           <Text style={[styles.title, { color: isDarkMode ? COLORS.white : COLORS.black }]}>

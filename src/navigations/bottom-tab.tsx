@@ -90,7 +90,7 @@ const BottomTabNavigator = () => {
       icon: 'home',
     },
     {
-      name: 'MyCourses',
+      name: 'My course',
       component: MyCourses,
       label: t('bottomNavigation.courses'),
       icon: 'book',

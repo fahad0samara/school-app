@@ -28,7 +28,8 @@ export const SIZES = {
   height,
 };
 export const COLORS = {
-  primary: "#335EF7",
+  SkyBlue: "#8DBFE2",
+  primary: "#FE8A54",
   secondary: "#FFD300",
   tertiary: "#6C4DDA",
   accent: "#f39c12",
@@ -72,20 +73,29 @@ export const COLORS = {
   grayTie: "#BCBCBC",
   background: "#000",
   background2: "#000",
+  placeholder: "#aaa",
+  Light: "#666",
+
 };
 
 
 
 
 export const darkModeColors = {
+  SkyBlue: "#8DBFE2",
   white: "#FFFFFF",
+
   greyscale900: "#000000",
   secondaryWhite: "#F0F0F0",
-  primary: "#8DBFE2",
+  primary: "#FE8A54",
   greyScale800: "#4D4D4D",
-  dark1: "#000000",
-  dark2: "#1A1A1A",
-  dark3: "#2D2D2D",
+  dark1: "#000000", // Pure black
+  dark2: "#1A1A1A", // Very dark gray
+  dark3: "#2D2D2D", // Dark gray
+  dark4: "#3D3D3D", // Slightly lighter dark gray
+  dark5: "#4D4D4D", // Medium dark gray
+  dark6: "#5D5D5D", // Light dark gray
+  dark7: "#6D6D6D", // Soft dark gray
   transparentPrimary: "#007BFF20",
   grayscale200: "#E0E0E0",
   grayscale250: "#EEEEEE",
@@ -93,9 +103,11 @@ export const darkModeColors = {
   border: "#4D4D4D",
   accent: "#FF5733",
   shadow: "#000000",
+  placeholder: "#aaa",
 };
 
 export const lightModeColors = {
+  SkyBlue: "#8DBFE2",
   white: "#FFFFFF",
   greyscale900: "#000000",
   secondaryWhite: "#F0F0F0",
@@ -108,6 +120,13 @@ export const lightModeColors = {
   border: "#DDDDDD",
   accent: "#FF5733",
   shadow: "#CCCCCC",
+    gray: "#9E9E9E",
+  gray2: "#35383F",
+  gray3: "#9E9E9E",
+  dark1: "#000000",
+  dark2: "#1F222A",
+  dark3: "#3533F",
+   placeholdercolor: "#666", 
 };
 
 export const FONTS = {

@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Modal, StyleSheet } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';  // For the error icon
-import { FontAwesome5 } from '@expo/vector-icons';  // For stars in success
+import { MaterialIcons } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { useDarkMode } from "../../../Hooks/darkmode/useDarkMode"; 
 
 const PaymentModal = ({ isVisible, onClose, title, message, buttonText, isSuccess }) => {
+  const { colors } = useDarkMode(); 
+
   return (
     <Modal
       animationType="slide"
@@ -12,7 +15,7 @@ const PaymentModal = ({ isVisible, onClose, title, message, buttonText, isSucces
       onRequestClose={onClose}
     >
       <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
+        <View style={[styles.modalContent, { backgroundColor: colors.card }]}>
           {/* Star icons for success */}
           {isSuccess ? (
             <View style={styles.successIconContainer}>
@@ -30,16 +33,16 @@ const PaymentModal = ({ isVisible, onClose, title, message, buttonText, isSucces
             {title}
           </Text>
 
-          <Text style={styles.message}>{message}</Text>
+          <Text style={[styles.message, { color: colors.text }]}>{message}</Text>
 
           {/* Conditionally render "Watch e-receipt" or error-related text */}
           {isSuccess ? (
             <TouchableOpacity>
-              <Text style={styles.watchReceiptText}>Watch e-receipt</Text>
+              <Text style={[styles.watchReceiptText, { color: '#4CAF50' }]}>Watch e-receipt</Text>
             </TouchableOpacity>
           ) : (
             <TouchableOpacity>
-              <Text style={styles.errorHelpText}>Contact Support or Retry Payment</Text>
+              <Text style={[styles.errorHelpText, { color: '#FF0000' }]}>Contact Support or Retry Payment</Text>
             </TouchableOpacity>
           )}
 
@@ -60,7 +63,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    backgroundColor: '#fff',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
@@ -86,12 +88,10 @@ const styles = StyleSheet.create({
   },
   watchReceiptText: {
     fontSize: 16,
-    color: '#4CAF50',
     marginBottom: 20,
   },
   errorHelpText: {
     fontSize: 16,
-    color: '#FF0000',
     marginBottom: 20,
   },
   actionButton: {

@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import SectionHeader from './common/SectionHeader';
+import { useDarkMode } from '../../Hooks/darkmode/useDarkMode';
 
 const universities = [
   { id: 1, name: 'AUM', logoUri: 'https://cdn.pixabay.com/photo/2017/07/24/23/00/dumbbells-2536372_960_720.jpg' },
@@ -9,7 +11,7 @@ const universities = [
 
 const UniversityCard = ({ name, logoUri }) => {
   const translateX = useRef(new Animated.Value(50)).current;
-
+ const {colors ,isDarkMode } = useDarkMode(); 
   React.useEffect(() => {
     Animated.spring(translateX, {
       toValue: 0,
@@ -20,9 +22,15 @@ const UniversityCard = ({ name, logoUri }) => {
   }, []);
 
   return (
-    <Animated.View style={[styles.universityCard, { transform: [{ translateX }] }]}>
+<Animated.View style={[
+  styles.universityCard, 
+  { 
+    transform: [{ translateX }], 
+    backgroundColor: colors.card 
+  } 
+]}>
       <Image source={{ uri: logoUri }} style={styles.universityLogo} />
-      <Text style={styles.universityName}>{name}</Text>
+      <Text style={[styles.universityName,{  color: colors.text  }]}>{name}</Text>
     </Animated.View>
   );
 };
@@ -30,12 +38,7 @@ const UniversityCard = ({ name, logoUri }) => {
 const UniversitiesSection = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Universities</Text>
-        <TouchableOpacity>
-          <Text style={styles.seeAll}>See all</Text>
-        </TouchableOpacity>
-      </View>
+
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
         {universities.map((university) => (
@@ -50,47 +53,32 @@ export default UniversitiesSection;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    paddingHorizontal: 15,
+   
+    paddingHorizontal: 2,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  seeAll: {
-    fontSize: 14,
-    color: '#ff6f00', // Accent color for the "See all" link
-  },
-  scrollViewContent: {
-    paddingVertical: 10,
+ scrollViewContent: {
+    paddingVertical: 5,
   },
   universityCard: {
     backgroundColor: '#fff',
-    borderRadius: 16, // Adjusted for a partial rounded border
+    borderRadius: 16,
     paddingVertical: 7,
-    paddingHorizontal: 11, // Match the requested padding
+    paddingHorizontal: 11, 
     marginRight: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: 120, // Updated width
-    height: 50, // Updated height
+    width: 120, 
+    height: 50, 
     gap: 0,
     shadowColor: '#698296',
     shadowOffset: {
-      width: 1, // Mimicking the box-shadow's x-offset
-      height: 3, // Mimicking the box-shadow's y-offset
+      width: 10, 
+      height: 10, 
     },
-    shadowOpacity: 0.1, // Corresponds to lighter shadow opacity (0D, 0A, etc.)
-    shadowRadius: 6, // Matches the spread radius
-    elevation: 5, // For Android shadow
+    shadowOpacity: 0.1, 
+    shadowRadius: 6,
+    elevation: 10,
   },
   universityLogo: {
     width: 40,

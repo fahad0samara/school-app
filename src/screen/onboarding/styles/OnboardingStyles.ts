@@ -27,18 +27,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize:25,
-    fontWeight:"bold",
-    
+    fontSize: 25,
+    fontWeight: "bold",
+
     color: COLORS.black,
     textAlign: "center",
-  
   },
   subTitle: {
     ...FONTS.h2,
     color: COLORS.primary,
     textAlign: "center",
- 
   },
   description: {
     ...FONTS.body3,
@@ -61,8 +59,8 @@ const styles = StyleSheet.create({
   nextButton: {
     width: SIZES.width - 44,
     marginBottom: SIZES.padding,
-    backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
+    backgroundColor: COLORS.SkyBlue,
+    borderColor: COLORS.transparentPrimary,
     marginTop: 22,
   },
   skipButton: {

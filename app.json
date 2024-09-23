@@ -4,7 +4,7 @@
     "slug": "school",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Splash.jpg",
+    "icon": "./assets/Splash.png",
      "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -30,9 +30,9 @@
 
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/Splash.jpg",
+      "image": "./assets/Splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#335EF7"
+      "backgroundColor": "#8DBFE2"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -43,14 +43,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Splash.jpg",
+        "foregroundImage": "./assets/Splash.png",
         "backgroundColor": "#000",
               "supportsRTL": true
       },
       "package": "com.fahad0.school"
     },
     "web": {
-      "favicon": "./assets/splash.png"
+      "favicon": "./assets/Splash.png"
     }
   }
 }
