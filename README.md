@@ -60,5 +60,41 @@
 - **Testing**: Conducted tests to verify the new password creation process, ensuring all text is correctly translated and displayed based on the selected language.
 
 ---
+### Day 5: Course Details Screen with Video Player
+
+**Course Details Screen Implementation:**
+- Created the `CourseDetails` screen to display detailed information about a course, including:
+  - Course title, description, and pricing.
+  - Teacher information with an avatar image and teacher's name.
+  - Lessons displayed in a collapsible accordion format.
+
+**Video Player:**
+- Integrated a video player using the `expo-av` library to allow users to view course-related videos directly within the course details screen.
+- Added custom controls (play, pause, skip forward/backward) using `Ionicons` icons.
+- Enabled fullscreen mode for the video player to enhance the viewing experience.
+- Styled the video player and controls to match the app’s overall design, with custom play/pause and skip buttons displayed below the video.
+
+**Accordion for Lessons:**
+- Added an accordion component for displaying the lessons section.
+  - Each week of lessons can be expanded or collapsed to show videos and documents associated with that week.
+  - Used icons and headers for each lesson with placeholders for video and document count.
+
+---
+
+## Day 6: Video Screen Implementation
+
+### Video Playback Features
+- **Custom Video Controls**: Implemented custom playback controls instead of native controls, enhancing user experience.
+- **Playback Speed Options**: Added buttons to change playback speed (0.5x, 1x, 1.5x, 2x) directly on the video screen, allowing users to adjust speed as desired.
+- **Seek Buttons**: Implemented buttons for skipping forward and backward by 10 seconds for easier navigation through the video.
+
+### User Interface Enhancements
+- **Visibility Toggle for Controls**: Added functionality to show controls only when the user touches the screen, improving visual clarity during playback.
+- **Slider Customization**: Styled the slider to be smaller yet visually appealing, maintaining functionality while minimizing screen space usage.
+- **Animated Progress Bar**: Incorporated an animated progress bar that visually indicates playback progress, enhancing user engagement.
+
+---
+
+
 
 
